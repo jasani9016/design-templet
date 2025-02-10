@@ -1,4 +1,4 @@
-import React, { Suspense, useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import {
   MenuItem,
   Menu,
@@ -6,37 +6,12 @@ import {
   useTheme,
   useMediaQuery,
 } from "@mui/material";
-
-// Authentication
 import useAuth from "../../hooks/useAuth";
-
 import { useNavigate } from "react-router-dom";
-
-// Color Context toggler
 import { ColorModeContext } from "../../App";
 import CustomSwitch from "../CustomSwitch/CustomSwitch";
 
-// Modal Loader
-import { ModalSkeletons } from "../Skeletons/ComponentSkeletons";
-
-// Installation modal
-const InstallationModal = React.lazy(() =>
-  import("../InstallationModal/InstallationModal")
-);
-
 const SettingsMenu = ({ anchorEl, open, handleClose }) => {
-  const [openInstallationModal, setOpenInstallationModal] = useState(false);
-  const [showInstallMenu, setShowInstallMenu] = useState(true);
-
-  // Installation Modal
-  const handleOpenIstallationModal = () => {
-    setOpenInstallationModal(true);
-  };
-
-  const handleCloseInstallationModal = () => {
-    setOpenInstallationModal(false);
-  };
-
   const { logOut } = useAuth();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
@@ -49,26 +24,8 @@ const SettingsMenu = ({ anchorEl, open, handleClose }) => {
     handleClose();
   };
 
-  useEffect(() => {
-    // For iOS
-    if (window.navigator.standalone) {
-      setShowInstallMenu(false);
-    }
-    // For Android
-    if (window.matchMedia("(display-mode: standalone)").matches) {
-      setShowInstallMenu(false);
-    }
-  }, [showInstallMenu]);
-
   return (
     <React.Fragment>
-      <Suspense fallback={<ModalSkeletons />}>
-        <InstallationModal
-          open={openInstallationModal}
-          handleOpen={handleOpenIstallationModal}
-          onClose={handleCloseInstallationModal}
-        />
-      </Suspense>
       <Menu
         anchorEl={anchorEl}
         open={open}
@@ -98,13 +55,6 @@ const SettingsMenu = ({ anchorEl, open, handleClose }) => {
             Logout
           </Typography>
         </MenuItem>
-        {showInstallMenu && (
-          <MenuItem onClick={handleOpenIstallationModal}>
-            <Typography variant="caption" color="text.success">
-              Install App
-            </Typography>
-          </MenuItem>
-        )}
         {isMobile && (
           <MenuItem
             sx={{

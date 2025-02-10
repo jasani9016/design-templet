@@ -1,142 +1,46 @@
-// React
 import React, { createContext, Suspense, useState } from "react";
-
 import firebaseConfig from "./Firebase/firebase.config";
 import NoFirebase from "./components/NoFirebase";
-// Material UI
 import Box from "@mui/system/Box";
 import CustomTheme from "./Theme/CustomTheme";
 import { ThemeProvider } from "@mui/system";
-
-// Helmet
 import Helmet from "react-helmet";
-
-// Router
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
-
-// Styles
 import "./App.css";
-
-// Progress Loader
 import ProgressLoader from "./components/ProgressLoader/ProgressLoader";
-
-// Auth Provider
 import AuthProvider from "./contexts/AuthProvider";
-import { ModalSkeletons } from "./components/Skeletons/ComponentSkeletons";
-
-// Custom Title and Description imports
 import { appTitle, appDescription } from "./Utilities/Customs";
-
-// Navigation Routes
 import NavRoutes from "./NavigationRoutes";
 
-/**********************************
-          Lazy Pages
-***********************************/
-
-// Registration
-const Registration = React.lazy(() =>
-  import("./Pages/Registration/Registration")
-);
-const SignUpInterface = React.lazy(() =>
-  import("./Pages/Registration/SignUpInterface/SignUpInterface")
-);
-const TwoFAPage = React.lazy(() =>
-  import("./Pages/Registration/TwoFAPage/TwoFAPage")
-);
-const TwoFAPin = React.lazy(() =>
-  import("./Pages/Registration/TwoFAPage/TwoFAPin")
-);
-
-// Login
+const Registration = React.lazy(() => import("./Pages/Registration/Registration"));
+const SignUpInterface = React.lazy(() => import("./Pages/Registration/SignUpInterface/SignUpInterface"));
+const TwoFAPage = React.lazy(() => import("./Pages/Registration/TwoFAPage/TwoFAPage"));
+const TwoFAPin = React.lazy(() =>import("./Pages/Registration/TwoFAPage/TwoFAPin"));
 const Login = React.lazy(() => import("./Pages/Login/Login"));
-const SignInInterface = React.lazy(() =>
-  import("./Pages/Login/SignInInterface/SignInInterface")
-);
-const ForgotPass = React.lazy(() =>
-  import("./Pages/Login/ForgotPass/ForgotPass")
-);
+const SignInInterface = React.lazy(() => import("./Pages/Login/SignInInterface/SignInInterface"));
+const ForgotPass = React.lazy(() => import("./Pages/Login/ForgotPass/ForgotPass"));
 const ResetPass = React.lazy(() => import("./Pages/Login/ResetPass/ResetPass"));
-
-// Account Setup
-const AccountSetup = React.lazy(() =>
-  import("./Pages/AccountSetup/AccountSetup")
-);
-const OTPVerification = React.lazy(() =>
-  import("./Pages/Login/OTPVerification/OTPVerification")
-);
-
-// Private Route
+const AccountSetup = React.lazy(() => import("./Pages/AccountSetup/AccountSetup"));
+const OTPVerification = React.lazy(() => import("./Pages/Login/OTPVerification/OTPVerification"));
 const PrivateRoute = React.lazy(() => import("./Private/PrivateRoute"));
-
-// Wallets
 const Wallets = React.lazy(() => import("./Pages/Wallets/Wallets"));
-const CryptoWallet = React.lazy(() =>
-  import("./Pages/CryptoWallet/CryptoWalletInterface")
-);
-const FiatWallet = React.lazy(() =>
-  import("./Pages/FiatWallet/FiatWalletInterface")
-);
-const LoyaltyWallet = React.lazy(() =>
-  import("./Pages/LoyaltyWallet/LoyaltyWalletInterface")
-);
-
-// Top Up
+const CryptoWallet = React.lazy(() => import("./Pages/CryptoWallet/CryptoWalletInterface"));
+const FiatWallet = React.lazy(() => import("./Pages/FiatWallet/FiatWalletInterface"));
+const LoyaltyWallet = React.lazy(() => import("./Pages/LoyaltyWallet/LoyaltyWalletInterface"));
 const TopUpPage = React.lazy(() => import("./Pages/TopUpPage/TopUpPage"));
-
-// Coin details
 const CoinDetails = React.lazy(() => import("./Pages/CoinDetails/CoinDetails"));
-
-// Profile Page
-const ProfileInterface = React.lazy(() =>
-  import("./Pages/ProfilePage/ProfileInteface")
-);
-
-// Static Page
-const StaticPageInterface = React.lazy(() =>
-  import("./Pages/StaticPages/StaticPageInterface")
-);
-const TermsAndCondition = React.lazy(() =>
-  import("./Pages/StaticPages/TermsAndCondition")
-);
-const PrivacyPolicy = React.lazy(() =>
-  import("./Pages/StaticPages/PrivacyPolicy")
-);
+const ProfileInterface = React.lazy(() => import("./Pages/ProfilePage/ProfileInteface"));
+const StaticPageInterface = React.lazy(() => import("./Pages/StaticPages/StaticPageInterface"));
+const TermsAndCondition = React.lazy(() => import("./Pages/StaticPages/TermsAndCondition"));
+const PrivacyPolicy = React.lazy(() => import("./Pages/StaticPages/PrivacyPolicy"));
 const About = React.lazy(() => import("./Pages/StaticPages/About"));
 const FAQ = React.lazy(() => import("./Pages/StaticPages/FAQ"));
-
-// Onboarding
-const OnboardingPage = React.lazy(() =>
-  import("./Pages/Onboarding/OnboardingPage.js")
-);
-
-// InstallationModal
-const InstallationModal = React.lazy(() =>
-  import("./components/InstallationModal/InstallationModal")
-);
-
-// Color Context
+const OnboardingPage = React.lazy(() => import("./Pages/Onboarding/OnboardingPage.js"));
 export const ColorModeContext = createContext({ toggleColorMode: () => {} });
 
-// Title and Descriptions
-
 function App() {
-  // Installation
-  const [openInstallationModal, setOpenInstallationModal] = useState(false);
-
-  // Title and Description
   const title = appTitle();
   const description = appDescription();
-
-  // Installation Modal
-  const handleOpenIstallationModal = () => {
-    setOpenInstallationModal(true);
-  };
-
-  const handleCloseInstallationModal = () => {
-    setOpenInstallationModal(false);
-  };
-
   const { theme, colorMode } = CustomTheme();
 
   const colorModeTheme = localStorage.getItem("colorMode");
@@ -147,7 +51,7 @@ function App() {
       localStorage.setItem("colorMode", "light");
     }
   } else if (colorModeTheme) {
-    if (theme.palette.mode === "dark") {
+    if (theme.palette.mode === "dark") {  
       localStorage.setItem("colorMode", "dark");
     } else {
       localStorage.setItem("colorMode", "light");
@@ -163,7 +67,7 @@ function App() {
               <Helmet
                 bodyAttributes={
                   theme.palette.mode === "dark"
-                    ? { style: "background-color: #252628" }
+                    ? { style: "background-color:rgb(208, 220, 243)" }
                     : { style: "background-color: #fbfbfb" }
                 }
                 title={title ? title : "Thrifty Wallet"}
@@ -179,13 +83,6 @@ function App() {
               />
               <Box bgcolor={theme.palette.background.default} className="App">
                 <div className="container">
-                  <Suspense fallback={<ModalSkeletons />}>
-                    <InstallationModal
-                      open={openInstallationModal}
-                      handleOpen={handleOpenIstallationModal}
-                      onClose={handleCloseInstallationModal}
-                    />
-                  </Suspense>
                   <BrowserRouter>
                     <Routes>
                       <Route
