@@ -1,13 +1,13 @@
 import React from "react";
 import {
-  Divider,
-  Zoom,
-  IconButton,
   Modal,
-  Tooltip,
-  Typography,
-  Button,
+  Divider,
+  IconButton,
+  Zoom,
   useTheme,
+  Tooltip,
+  Button,
+  Typography,
 } from "@mui/material";
 import { Box } from "@mui/system";
 import CloseIcon from "@mui/icons-material/Close";
@@ -25,10 +25,10 @@ const DeleteAccountModal = ({ open, handleClose }) => {
 
   return (
     <Modal
+      open={open}
+      keepMounted
       disableAutoFocus
       disableEnforceFocus
-      keepMounted
-      open={open}
       onClose={handleClose}
     >
       <Box bgcolor="background.paper" className={styles.deleteAccountModalBody}>
@@ -39,8 +39,8 @@ const DeleteAccountModal = ({ open, handleClose }) => {
           <IconButton color="secondary" onClick={handleClose}>
             <Tooltip
               placement="right"
+              title="Close"
               TransitionComponent={Zoom}
-              title="Close Modal"
             >
               <CloseIcon fontSize="medium" />
             </Tooltip>
@@ -50,29 +50,28 @@ const DeleteAccountModal = ({ open, handleClose }) => {
         <Box className={styles.deleteAccountModalContentBox}>
           <Typography
             mb={3}
-            textAlign="center"
             lineHeight={2}
-            color="secondary"
             variant="body2"
+            color="secondary"
+            textAlign="center"
           >
-            Are you sure you want to delete your account? Once deleted, it can't
-            be recovered again.
+            Are you sure you want to delete your account? Once deleted, it can't be recovered again.
           </Typography>
         </Box>
         {theme.palette.mode === "dark" ? (
           <Button
-            onClick={() => navigate("/registration/sign-up")}
             color="primary"
             variant="contained"
             fullWidth
+            onClick={() => navigate("/registration/sign-up")}
           >
             <Typography
-              variant="caption"
               className={styles.deleteAccountModalButton}
+              variant="caption"
               color="common.black"
               fontWeight={700}
             >
-              Yes, delete my account
+              Yes, delete my account!
             </Typography>
           </Button>
         ) : (
@@ -86,7 +85,7 @@ const DeleteAccountModal = ({ open, handleClose }) => {
               color="common.white"
               fontWeight={700}
             >
-              Yes, delete my account
+              Yes, delete my account!
             </Typography>
           </LightUIButtonPrimary>
         )}

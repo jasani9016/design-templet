@@ -1,15 +1,15 @@
 import React, { Suspense, useState } from "react";
 import { Box } from "@mui/system";
 import {
+  Typography,
   Grid,
-  IconButton,
   Paper,
   Stack,
-  Typography,
   useMediaQuery,
+  IconButton,
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
-import BorderColorIcon from "@mui/icons-material/BorderColor";
+import ModeEditIcon from '@mui/icons-material/ModeEdit';
 
 // Styles
 import styles from "../Account.module.css";
@@ -52,20 +52,21 @@ const BankInfo = ({ handleClickMenu }) => {
   };
 
   const handleBankInformationChange = (e) => {
-    const field = e.target.name;
+    const name = e.target.name;
     const value = e.target.value;
 
     const newKycInformation = { ...bankInformation };
-    newKycInformation[field] = value;
+    newKycInformation[name] = value;
     setBankInformation(newKycInformation);
   };
 
   const handleAddBankInformationChange = (e) => {
-    const field = e.target.name;
+
+    const name = e.target.name;
     const value = e.target.value;
 
     const newBankInformation = { ...addBankInformations };
-    newBankInformation[field] = value;
+    newBankInformation[name] = value;
     setAddBankInformaitons(newBankInformation);
   };
 
@@ -101,14 +102,14 @@ const BankInfo = ({ handleClickMenu }) => {
   return (
     <React.Fragment>
       <Grid container columns={{ xs: 1, sm: 12, md: 12 }}>
-        <Grid item xs={12} sm={12} md={7}>
+        <Grid item xs={12} sm={12} md={12}>
           <Box className={styles.bankInfo}>
             {/* Header */}
             <Box className={styles.infoContentTitleBox}>
               <Stack
                 direction="row"
-                justifyContent="space-between"
                 alignItems="center"
+                justifyContent="space-between"
               >
                 <Typography
                   variant={!isMobile ? "h6" : "subtitle1"}
@@ -117,9 +118,9 @@ const BankInfo = ({ handleClickMenu }) => {
                   Bank Info
                 </Typography>
                 <Stack
+                  spacing={2}
                   direction="row"
                   justifyContent="flex-end"
-                  spacing={2}
                   alignItems="center"
                   sx={{ cursor: "pointer" }}
                 >
@@ -132,10 +133,10 @@ const BankInfo = ({ handleClickMenu }) => {
                       theme.palette.mode === "dark"
                         ? theme.palette.background.paper
                         : "rgba(234, 234,234, 0.3)"
-                    }
-                    py={"2px"}
-                    pr={1.5}
+                      }
                     gap={1}
+                    pr={1.5}
+                    py={"2px"}
                     borderRadius="2px"
                   >
                     <IconButton
@@ -144,7 +145,7 @@ const BankInfo = ({ handleClickMenu }) => {
                     >
                       <AddIcon fontSize="small" />
                     </IconButton>
-                    <Typography variant="caption" component="span">
+                    <Typography component="span" variant="caption" >
                       Add Bank
                     </Typography>
                   </Stack>
@@ -159,10 +160,10 @@ const BankInfo = ({ handleClickMenu }) => {
                     borderRadius="2px"
                   >
                     <IconButton
-                      size={!isMobile ? "medium" : "small"}
                       color="secondary"
+                      size={!isMobile ? "medium" : "small"}
                     >
-                      <BorderColorIcon fontSize="small" />
+                      <ModeEditIcon fontSize="small" />
                     </IconButton>
                   </Box>
                 </Stack>
@@ -204,9 +205,7 @@ const BankInfo = ({ handleClickMenu }) => {
                   variant={!isMobile ? "body1" : "body2"}
                   color="text.secondary"
                 >
-                  {bankInformation.bankIFSC
-                    ? bankInformation.bankIFSC
-                    : "ABC121212"}
+                  {bankInformation.bankIFSC ? bankInformation.bankIFSC : "ABC121212"}
                 </Typography>
               </Box>
               {/* Account Holder */}
@@ -224,15 +223,34 @@ const BankInfo = ({ handleClickMenu }) => {
                   variant={!isMobile ? "body1" : "body2"}
                   color="text.secondary"
                 >
-                  {bankInformation.bankAccountHolderName
-                    ? bankInformation.bankAccountHolderName
-                    : "John Doe"}
+                  {bankInformation.bankAccountHolderName ? bankInformation.bankAccountHolderName : "John Doe"}
+                </Typography>
+              </Box>
+              {/* Account Type */}
+              <Box
+                bgcolor={theme.palette.background.default}
+                className={styles.infoContentBox}
+              >
+                <Typography
+                  variant={!isMobile ? "body1" : "body2"}
+                  color="secondary"
+                >
+                  Account Type
+                </Typography>
+                <Typography
+                  variant={!isMobile ? "body1" : "body2"}
+                  color="text.secondary"
+                >
+                  {bankInformation.bankAccountType
+                    ? bankInformation.bankAccountType
+                    : "Saving"}
                 </Typography>
               </Box>
             </Paper>
             {addBankInformations.bankName &&
             addBankInformations.bankIFSC &&
-            addBankInformations.bankAccountHolderName ? (
+            addBankInformations.bankAccountHolderName && 
+            addBankInformations.bankAccountType ? (
               <Box mt={2}>
                 <Paper variant="outlined">
                   {/* Bank Name */}
@@ -250,9 +268,7 @@ const BankInfo = ({ handleClickMenu }) => {
                       variant={!isMobile ? "body1" : "body2"}
                       color="text.secondary"
                     >
-                      {addBankInformations.bankName
-                        ? addBankInformations.bankName
-                        : "ABC Bank"}
+                      {addBankInformations.bankName ? addBankInformations.bankName : "ABC Bank"}
                     </Typography>
                   </Box>
                   {/* IFSC */}
@@ -270,9 +286,7 @@ const BankInfo = ({ handleClickMenu }) => {
                       variant={!isMobile ? "body1" : "body2"}
                       color="text.secondary"
                     >
-                      {addBankInformations.bankIFSC
-                        ? addBankInformations.bankIFSC
-                        : "ABC123456"}
+                      {addBankInformations.bankIFSC ? addBankInformations.bankIFSC : "XYZ987654"}
                     </Typography>
                   </Box>
                   {/* Account Holder */}
@@ -290,9 +304,27 @@ const BankInfo = ({ handleClickMenu }) => {
                       variant={!isMobile ? "body1" : "body2"}
                       color="text.secondary"
                     >
-                      {addBankInformations.bankAccountHolderName
-                        ? addBankInformations.bankAccountHolderName
-                        : "John Doe"}
+                      {addBankInformations.bankAccountHolderName ? addBankInformations.bankAccountHolderName : "John Doe"}
+                    </Typography>
+                  </Box>
+                  {/* Account Type */}
+                  <Box
+                    bgcolor={theme.palette.background.default}
+                    className={styles.infoContentBox}
+                  >
+                    <Typography
+                      variant={!isMobile ? "body1" : "body2"}
+                      color="secondary"
+                    >
+                      Account Type
+                    </Typography>
+                    <Typography
+                      variant={!isMobile ? "body1" : "body2"}
+                      color="text.secondary"
+                    >
+                      {addBankInformations.bankAccountType
+                        ? addBankInformations.bankAccountType
+                        : "Saving"}
                     </Typography>
                   </Box>
                 </Paper>

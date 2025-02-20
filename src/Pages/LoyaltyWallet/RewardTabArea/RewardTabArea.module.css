@@ -1,57 +1,57 @@
 .mainBox {
-  margin-bottom: 3rem;
+  margin-bottom: 48px;
 }
 
 .availableReward {
-  margin-top: 3rem;
+  margin-top: 48px;
 }
 .availableRewardMobile {
+  gap: 16px;
   display: flex;
+  align-items: center;
+  padding-bottom: 32px;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
-  gap: 1rem;
-  padding-bottom: 2rem;
 }
 
 .availableRewardCard {
   display: flex;
-  align-items: stretch;
   border-radius: 10px;
+  align-items: stretch;
   box-shadow: 0px 4px 50px rgba(0, 0, 0, 0.1);
 }
 
 .availableRewardCardMobile {
   display: flex;
   border-radius: 10px;
-  box-shadow: 0px 4px 50px rgba(0, 0, 0, 0.1);
   width: calc(100vw - 10vw);
+  box-shadow: 0px 4px 50px rgba(0, 0, 0, 0.1);
 }
 
 .availableRewardImageArea {
   display: flex;
-  justify-content: center;
+  position: relative;
   align-items: center;
-  padding-left: 2.5rem;
-  padding-right: 2.5rem;
+  padding-left: 40px;
+  padding-right: 40px;
+  justify-content: center;
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
-  position: relative;
 }
 
 .availableRewardImageAreaMobile {
   display: flex;
-  justify-content: center;
   align-items: center;
-  padding-left: 1rem;
-  padding-right: 1rem;
+  position: relative;
+  padding-left: 16px;
+  padding-right: 16px;
+  justify-content: center;
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
-  position: relative;
 }
 
 .availableRewardContentArea {
-  padding: 10px 1.3rem;
+  padding: 10px 21px;
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
 }
@@ -64,53 +64,47 @@
 }
 
 .chipStyle {
-  background-color: #f8931a;
   color: #ffffff;
   border-radius: 4px;
-  padding-top: 7px;
-  padding-bottom: 7px;
-  padding-left: 10px;
-  padding-right: 10px;
+  background-color: #f8931a;
+  padding: 7px 10px 7px 10px;
 }
 
 .chipStyleMobile {
-  background-color: #f8931a;
-  color: #ffffff;
-  border-radius: 4px;
-  font-size: 10px;
   display: flex;
-  justify-content: center;
+  color: #ffffff;
+  font-size: 10px;
+  margin-left: 16px;
+  border-radius: 4px;
   align-items: center;
-  margin-left: 1rem;
+  background-color: #f8931a;
+  justify-content: center;
 }
 
 .chipStyleLocked {
-  background-color: #777777;
   color: #ffffff;
   border-radius: 4px;
-  padding-top: 7px;
-  padding-bottom: 7px;
-  padding-left: 10px;
-  padding-right: 10px;
+  background-color: #777777;
+  padding: 7px 10px 7px 10px;
 }
 
 .chipStyleLockedMobile {
-  background-color: #777777;
   color: #ffffff;
-  border-radius: 4px;
   font-size: 10px;
   display: flex;
-  justify-content: center;
-  align-items: center;
   padding: 5px;
-  margin-left: 1rem;
+  margin-left: 16px;
+  border-radius: 4px;
+  align-items: center;
+  justify-content: center;
+  background-color: #777777;
 }
 
 .availableRewardButton {
   margin-top: 5px;
-  text-transform: capitalize;
   padding-left: 5px;
   padding-right: 5px;
+  text-transform: capitalize;
 }
 
 .lockedImage {
@@ -132,32 +126,28 @@
   font-size: 30px;
 }
 
-.tableArea {
-  padding-right: 1rem;
-}
-
 .tableAreaMobile {
   width: 90vw;
 }
 
-.rewardImageMobile {
-  width: 40px;
-  height: 40px;
+.tableArea {
+  padding-right: 16px;
 }
 
-/* Reward Modal */
+.rewardImageMobile {
+  height: 40px;
+  width: 40px;
+}
+
 .claimRewardModalBody {
-  border-radius: 5px;
-  position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
   width: 500px;
   box-shadow: 24px;
-  padding-top: 1rem;
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
-  padding-bottom: 2rem;
+  position: absolute;
+  border-radius: 5px;
+  padding: 16px 24px 32px 24px;
+  transform: translate(-50%, -50%);
 }
 
 .claimRewardModalBodyMobile {
@@ -166,7 +156,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  padding: 1rem;
+  padding: 16px;
   width: 90vw;
 }
 
@@ -174,20 +164,20 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1rem;
+  margin-bottom: 16px;
 }
 
 .claimRewardModalContentBox {
-  padding: 1rem;
+  padding: 16px;
 }
 
 .claimRewardModalContentBoxMobile {
-  padding-top: 1rem;
-  padding-bottom: 1rem;
+  padding-top: 16px;
+  padding-bottom: 16px;
 }
 
 .rewardClaimModalButton {
-  padding: 1rem 0;
+  padding: 16px 0;
 }
 .rewardClaimModalButtonMobile {
   font-size: 14px;

@@ -1,15 +1,15 @@
 import React from "react";
 import {
-  Button,
-  Divider,
-  IconButton,
-  Input,
   Modal,
-  Stack,
-  Tooltip,
-  Typography,
+  Divider,
+  Input,
+  IconButton,
   useTheme,
   Zoom,
+  Stack,
+  Typography,
+  Button,
+  Tooltip,
 } from "@mui/material";
 import { Box } from "@mui/system";
 import CloseIcon from "@mui/icons-material/Close";
@@ -23,16 +23,15 @@ const AddBankModal = ({
   handleClose,
   handleAddBankInformationChange,
   addBankInformation,
-  handleSaveNewAddBank,
 }) => {
   const theme = useTheme();
 
   return (
     <Modal
+      open={open}
       disableAutoFocus
       disableEnforceFocus
       keepMounted
-      open={open}
       onClose={handleClose}
     >
       <Box bgcolor="background.paper" className={styles.bankInfoModalBody}>
@@ -41,8 +40,8 @@ const AddBankModal = ({
             <Typography
               variant="h5"
               component="h2"
-              fontWeight={600}
               color="primary"
+              fontWeight={600}
               letterSpacing={1}
             >
               Add Bank Info
@@ -52,8 +51,8 @@ const AddBankModal = ({
           <IconButton color="secondary" onClick={handleClose}>
             <Tooltip
               placement="right"
+              title="Close"
               TransitionComponent={Zoom}
-              title="Close Modal"
             >
               <CloseIcon fontSize="medium" />
             </Tooltip>
@@ -75,15 +74,13 @@ const AddBankModal = ({
             </Typography>
             <Input
               disableUnderline
-              className="inputField"
-              value={
-                addBankInformation.bankName ? addBankInformation.bankName : ""
-              }
               name="bankName"
-              onChange={handleAddBankInformationChange}
+              className="inputField"
               variant="filled"
               size="small"
               color="secondary"
+              value={addBankInformation.bankName ? addBankInformation.bankName : ""}
+              onChange={handleAddBankInformationChange}
             />
           </Stack>
           {/* IFSC */}
@@ -100,16 +97,14 @@ const AddBankModal = ({
             </Typography>
             <Input
               disableUnderline
-              className="inputField"
-              value={
-                addBankInformation.bankIFSC ? addBankInformation.bankIFSC : ""
-              }
               name="bankIFSC"
-              onChange={handleAddBankInformationChange}
-              variant="filled"
+              className="inputField"
               size="small"
               color="secondary"
-            />
+              variant="filled"
+              value={addBankInformation.bankIFSC ? addBankInformation.bankIFSC : ""}
+              onChange={handleAddBankInformationChange}
+              />
           </Stack>
           {/* Account Holder */}
           <Stack spacing={1} mb={2}>
@@ -125,26 +120,45 @@ const AddBankModal = ({
             </Typography>
             <Input
               disableUnderline
-              className="inputField"
-              value={
-                addBankInformation.bankAccountHolderName
-                  ? addBankInformation.bankAccountHolderName
-                  : ""
-              }
               name="bankAccountHolderName"
-              onChange={handleAddBankInformationChange}
+              className="inputField"
               variant="filled"
               size="small"
               color="secondary"
+              value={addBankInformation.bankAccountHolderName ? addBankInformation.bankAccountHolderName : ""}
+              onChange={handleAddBankInformationChange}
+            />
+          </Stack>
+          {/* Account Type */}
+          <Stack spacing={1} mb={2}>
+            <Typography
+              variant="body2"
+              color={
+                theme.palette.mode === "dark"
+                  ? "text.secondary"
+                  : "common.black"
+              }
+            >
+              Account Type
+            </Typography>
+            <Input
+              disableUnderline
+              name="bankAccountType"
+              className="inputField"
+              variant="filled"
+              size="small"
+              color="secondary"
+              value={addBankInformation.bankAccountType ? addBankInformation.bankAccountType : "" }
+              onChange={handleAddBankInformationChange}
             />
           </Stack>
         </Box>
         {theme.palette.mode === "dark" ? (
           <Button
-            onClick={handleClose}
-            color="primary"
-            variant="contained"
-            fullWidth
+          color="primary"
+          variant="contained"
+          fullWidth
+          onClick={handleClose}
           >
             Save
           </Button>

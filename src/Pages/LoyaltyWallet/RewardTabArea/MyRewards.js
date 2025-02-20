@@ -1,19 +1,16 @@
 import React, { Suspense } from "react";
-import { Box, Grid, Typography, Skeleton, useMediaQuery } from "@mui/material";
-
-// Image
-import DominosPizzaImage from "../../../assets/dominosPizza.svg";
-
-// Styles
 import styles from "./RewardTabArea.module.css";
-
-// Custom Theme
 import { useTheme } from "@mui/material/styles";
+import Bitcoin from "../../../assets/Bitcoin.svg";
+import { 
+  Box, 
+  Grid, 
+  Typography, 
+  Skeleton, 
+  useMediaQuery 
+} from "@mui/material";
 
-// Lazy Image Component
-const LazyImageComponent = React.lazy(() =>
-  import("../../../components/LazyImageComponent/LazyImageComponent")
-);
+const LazyImageComponent = React.lazy(() => import("../../../components/LazyImageComponent/LazyImageComponent"));
 
 // Fake Available Rewards
 const availableRewardData = [
@@ -64,8 +61,8 @@ const MyRewards = () => {
         rowGap={{ md: 2, xl: 2, sm: 3 }}
         spacing={{ md: 2, xl: 2, sm: 3 }}
       >
-        {availableRewardData.map((rewardData) => (
-          <Grid key={rewardData.id} item md={6} xl={4} sm={12}>
+        {availableRewardData.map((data) => (
+          <Grid key={data.id} item md={6} xl={4} sm={12}>
             <Box className={styles.availableRewardCard}>
               <Box
                 bgcolor={theme.palette.common.white}
@@ -87,9 +84,10 @@ const MyRewards = () => {
                 >
                   <LazyImageComponent
                     className={
-                      rewardData.status === "locked" ? styles.lockedImage : {}
+                      data.status === "locked" ? styles.lockedImage : {}
                     }
-                    src={DominosPizzaImage}
+                    src={Bitcoin}
+                    style={{width: '80px'}}
                   />
                 </Suspense>
               </Box>
@@ -97,8 +95,8 @@ const MyRewards = () => {
                 bgcolor={theme.palette.background.paper}
                 className={styles.availableRewardContentArea}
               >
-                <Typography variant="h6">{rewardData.title}</Typography>
-                <Typography variant="body2">{rewardData.from}</Typography>
+                <Typography variant="h6">{data.title}</Typography>
+                <Typography variant="body2">{data.from}</Typography>
                 <Typography variant="body2" color="text.success" my={2.3}>
                   Claimed on 6th Jan,
                   <br />

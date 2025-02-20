@@ -9,27 +9,17 @@ import {
   Typography,
   useMediaQuery,
 } from "@mui/material";
-// Icon
 import ProgressCheckIcon from "../../../assets/progressCheckIcon.svg";
 import ProgressUnCheckIcon from "../../../assets/progressUnCheckIcon.svg";
 import BronzeBadgeIcon from "../../../assets/bronzeBadgeIcon.svg";
 import SilverBadgeIcon from "../../../assets/silverBadgeIcon.svg";
 import GoldBadgeIcon from "../../../assets/goldBadgeIcon.svg";
 import DiamonBadgeIcon from "../../../assets/diamondBadgeIcon.svg";
-
-// Styles
 import styles from "./TopCardArea.module.css";
-
-// Theme
 import { useTheme } from "@mui/material/styles";
-
-// Custom linear progressbar
 import { BorderLinearProgress } from "../../../components/ProgressLoader/CustomProgress";
 
-// Lazy Image component
-const LazyImageComponent = React.lazy(() =>
-  import("../../../components/LazyImageComponent/LazyImageComponent")
-);
+const LazyImageComponent = React.lazy(() => import("../../../components/LazyImageComponent/LazyImageComponent"));
 
 const TopCardArea = ({ handleConfetti }) => {
   const [progressValue, setProgressValue] = useState(0);
@@ -50,53 +40,22 @@ const TopCardArea = ({ handleConfetti }) => {
   }, [progressValue]);
 
   const handleBadgeButton = (badgeName) => {
-    if (badgeName === "gold") {
-      setProgressValue((prevProgress) =>
-        prevProgress >= 55 ? 70 : prevProgress + 5
-      );
-      handleConfetti();
-    } else if (badgeName === "diamond") {
-      setProgressValue((prevProgress) => (prevProgress < 100 ? 100 : 0));
-      handleConfetti();
-    }
+    setProgressValue((prevProgress) => {
+      switch (badgeName) {
+        case "gold":
+          return Math.min(prevProgress + 5, 70); // Caps at 70
+        case "diamond":
+          return prevProgress < 100 ? 100 : prevProgress; // Sets to 100 if below 100
+        default:
+          return prevProgress; // No change for unknown badge
+      }
+    });
+    handleConfetti();
   };
-
+  
   return (
     <Box className={styles.mainBox}>
       <Stack direction={!isTablet ? "row" : "column"} spacing={3}>
-        <Box sx={!isTablet ? { width: "450px" } : { width: "500px" }}>
-          <Box
-            className={styles.redeemBox}
-            bgcolor={theme.palette.background.card}
-          >
-            <Box className={styles.redeemCard}>
-              <Stack direction="row" justifyContent="space-between">
-                <Box>
-                  <Typography variant="body2" color="common.black">
-                    Available Points
-                  </Typography>
-                  <Typography variant="h3" color="#2B2B2B" fontWeight={700}>
-                    1040
-                  </Typography>
-                </Box>
-                <Box>
-                  <Chip label="Gold" className={styles.chipStyle} />
-                </Box>
-              </Stack>
-              <Box mt={4}>
-                <Button
-                  disableElevation
-                  className={styles.chipButton}
-                  onClick={() => {}}
-                  variant="contained"
-                  fullWidth
-                >
-                  Redeem Points
-                </Button>
-              </Box>
-            </Box>
-          </Box>
-        </Box>
         <Box sx={{ flexGrow: 1 }}>
           <Box
             bgcolor={theme.palette.background.paper}
@@ -104,11 +63,11 @@ const TopCardArea = ({ handleConfetti }) => {
           >
             <Stack direction="row" justifyContent="space-between">
               <Typography variant="body2" color="secondary">
-                52 more points for Gold badge
+                6 more points for Gold badge
               </Typography>
               <Typography variant="body2" color="secondary">
                 <Typography component="span" color="primary">
-                  10,040
+                  5000
                 </Typography>{" "}
                 Points Earned till now
               </Typography>
@@ -198,7 +157,7 @@ const TopCardArea = ({ handleConfetti }) => {
                 />
                 <Box className={styles.checkBox}>
                   <Stack
-                    sx={{ mx: "-1rem", mt: "-3px" }}
+                    sx={{ mx: "-16px", mt: "-3px" }}
                     direction="row"
                     justifyContent="space-between"
                   >
@@ -240,6 +199,38 @@ const TopCardArea = ({ handleConfetti }) => {
                     )}
                   </Stack>
                 </Box>
+              </Box>
+            </Box>
+          </Box>
+        </Box>
+        <Box sx={isTablet ? { width: "500px" } : { width: "450px" }}>
+          <Box
+            className={styles.redeemBox}
+            bgcolor={theme.palette.background.card}
+          >
+            <Box className={styles.redeemCard}>
+              <Stack direction="row" justifyContent="space-between">
+                <Box>
+                  <Typography variant="body2" color="common.black">
+                    Current Points
+                  </Typography>
+                  <Typography variant="h3" color="#2B2B2B" fontWeight={700}>
+                    2053
+                  </Typography>
+                </Box>
+                <Box>
+                  <Chip label="platinum" className={styles.chipStyle} />
+                </Box>
+              </Stack>
+              <Box mt={4}>
+                <Button
+                  fullWidth
+                  disableElevation
+                  className={styles.chipButton}
+                  variant="contained"
+                >
+                  Redeem Points
+                </Button>
               </Box>
             </Box>
           </Box>

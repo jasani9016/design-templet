@@ -7,9 +7,9 @@ import styles from "../../Account.module.css";
 import { LightUIButtonPrimary } from "../../../../../Utilities/LightUIButtons";
 
 const BankInfoModalMobile = ({
+  handleEdit,
   bankInformation,
   handleBankInformationChange,
-  handleEdit,
 }) => {
   const theme = useTheme();
 
@@ -34,13 +34,13 @@ const BankInfoModalMobile = ({
           </Typography>
           <Input
             disableUnderline
-            className="inputField"
-            value={bankInformation.bankName ? bankInformation.bankName : ""}
             name="bankName"
-            onChange={handleBankInformationChange}
+            className="inputField"
             variant="filled"
             size="small"
             color="secondary"
+            value={bankInformation.bankName ? bankInformation.bankName : ""}
+            onChange={handleBankInformationChange}
           />
         </Stack>
         {/* IFSC */}
@@ -55,13 +55,36 @@ const BankInfoModalMobile = ({
           </Typography>
           <Input
             disableUnderline
-            className="inputField"
-            value={bankInformation.bankIFSC ? bankInformation.bankIFSC : ""}
             name="bankIFSC"
-            onChange={handleBankInformationChange}
+            className="inputField"
             variant="filled"
             size="small"
             color="secondary"
+            value={bankInformation.bankIFSC ? bankInformation.bankIFSC : ""}
+            onChange={handleBankInformationChange}
+          />
+        </Stack>
+        {/* Account Holder */}
+        <Stack spacing={1} mb={2}>
+          <Typography
+            color={
+              theme.palette.mode === "dark" ? 
+              "text.secondary" :
+              "common.black"
+            }
+            variant="body2"
+          >
+            Account Holder Name
+          </Typography>
+          <Input
+            className="inputField"
+            name="bankAccountHolderName"
+            disableUnderline
+            variant="filled"
+            size="small"
+            color="secondary"
+            value={ bankInformation.bankAccountHolderName ? bankInformation.bankAccountHolderName : "" }
+            onChange={handleBankInformationChange}
           />
         </Stack>
         {/* Account Holder */}
@@ -72,35 +95,35 @@ const BankInfoModalMobile = ({
               theme.palette.mode === "dark" ? "text.secondary" : "common.black"
             }
           >
-            Account Holder Name
+            Account Type
           </Typography>
           <Input
             disableUnderline
-            className="inputField"
-            value={
-              bankInformation.bankAccountHolderName
-                ? bankInformation.bankAccountHolderName
-                : ""
-            }
             name="bankAccountHolderName"
-            onChange={handleBankInformationChange}
+            className="inputField"
             variant="filled"
             size="small"
             color="secondary"
+            value={ bankInformation.bankAccountHolderName ? bankInformation.bankAccountHolderName : "" }
+            onChange={handleBankInformationChange}
           />
         </Stack>
       </Box>
       {theme.palette.mode === "dark" ? (
         <Button
-          onClick={handleEdit}
+          fullWidth
           color="primary"
           variant="contained"
-          fullWidth
+          onClick={handleEdit}
         >
           Save
         </Button>
       ) : (
-        <LightUIButtonPrimary onClick={handleEdit} color="primary" fullWidth>
+        <LightUIButtonPrimary 
+          color="primary"
+          fullWidth 
+          onClick={handleEdit}
+        >
           Save
         </LightUIButtonPrimary>
       )}

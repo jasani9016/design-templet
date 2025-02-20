@@ -1,10 +1,10 @@
 .mainBox {
-  margin-bottom: 1rem;
+  margin-bottom: 16px;
 }
 
 /* Profile Info */
 .profileInfo {
-  margin-bottom: 3rem;
+  margin-bottom: 48px;
 }
 
 .profileInfoModalBody {
@@ -14,38 +14,34 @@
   left: 50%;
   transform: translate(-50%, -50%);
   width: 500px;
-  padding-top: 1rem;
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
-  padding-bottom: 2rem;
+  padding: 16px 24px 32px 24px;
 }
 
 .profileInfoModalContentBox {
-  margin-top: 1rem;
+  margin-top: 16px;
 }
 
 .imageUploadBox {
-  margin-top: 1.5rem;
-  margin-bottom: 1rem;
+  margin-top: 24px;
+  margin-bottom: 16px;
   display: flex;
   align-items: center;
-  gap: 2rem;
+  gap: 32px;
 }
 
 .imageBox {
-  padding: 1.5rem 3rem;
+  padding: 24px 48px;
   border-radius: 10px;
 }
 
-.uploadedImageBox > img {
+.uploadedImageBorder > img {
   height: 88px;
   width: 129px;
 }
 
 /* Bank Info */
 .bankInfo {
-  margin-top: 3rem;
-  margin-bottom: 3rem;
+  margin: 48px 0px 48px 0px;
 }
 
 .bankInfoModalBody {
@@ -55,20 +51,16 @@
   left: 50%;
   transform: translate(-50%, -50%);
   width: 500px;
-  padding-top: 1rem;
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
-  padding-bottom: 2rem;
+  padding: 16px 24px 32px 24px;
 }
 
 .bankInfoModalContentBox {
-  margin-top: 1rem;
+  margin-top: 16px;
 }
 
 /* KYC Info */
 .kycInfo {
-  margin-top: 3rem;
-  margin-bottom: 3rem;
+  margin: 48px 0px 48px 0px;
 }
 
 .KYCInfoModalBody {
@@ -78,34 +70,31 @@
   left: 50%;
   transform: translate(-50%, -50%);
   width: 500px;
-  padding-top: 1rem;
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
-  padding-bottom: 2rem;
+  padding: 16px 24px 32px 24px;
 }
 
 .KYCInfoModalContentBox {
-  margin-top: 1rem;
+  margin-top: 16px;
 }
 
 /* Other Options */
 .otherOptions {
-  margin-top: 3rem;
+  margin-top: 48px;
 }
 
 /* Common */
 .infoContentTitleBox {
-  margin-bottom: 1rem;
+  margin-bottom: 16px;
 }
 .infoContentBox {
-  padding: 1rem 1rem;
+  padding: 16px 16px;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
 .infoContentBoxMobile {
-  padding: 1rem 1rem;
+  padding: 16px 16px;
   display: flex;
   justify-content: space-between;
 }
@@ -128,18 +117,15 @@
   transform: translate(-50%, -50%);
   width: 500px;
   box-shadow: 24px;
-  padding-top: 1rem;
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
-  padding-bottom: 2rem;
+  padding: 16px 24px 32px 24px;
 }
 
 .deleteAccountModalContentBox {
-  padding: 1rem;
+  padding: 16px;
 }
 
 .deleteAccountModalButton {
-  padding: 0.5rem 0;
+  padding: 8px 0;
   text-transform: initial;
 }
 
@@ -152,14 +138,11 @@
   transform: translate(-50%, -50%);
   width: 500px;
   box-shadow: 24px;
-  padding-top: 1rem;
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
-  padding-bottom: 2rem;
+  padding: 16px 24px 32px 24px;
 }
 
 .changePasswordModalContentBox {
-  margin-top: 1rem;
+  margin-top: 16px;
 }
 
 .inputField {
@@ -173,7 +156,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1rem;
+  margin-bottom: 16px;
 }
 
 .textUnderScore {

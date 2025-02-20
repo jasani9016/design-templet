@@ -14,8 +14,6 @@ import {
 import { Box } from "@mui/system";
 import CloseIcon from "@mui/icons-material/Close";
 import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
-
-// Styles
 import styles from "../../Account.module.css";
 
 // Custom Theme
@@ -29,22 +27,23 @@ const ImageInput = styled("input")({
 
 const ProfileInfoModal = ({
   open,
+  userAvatar,
+  handleEdit,
   handleClose,
+  setUserAvatar,
+  handleImageUpload,
   profileInformation,
   handleProfileInformationChange,
-  handleEdit,
-  userAvatar,
-  handleImageUpload,
-  setUserAvatar,
 }) => {
   const theme = useTheme();
+  
   return (
     <Modal
-      disableAutoFocus
-      disableEnforceFocus
-      keepMounted
       open={open}
       onClose={handleClose}
+      keepMounted
+      disableAutoFocus
+      disableEnforceFocus
     >
       <Box bgcolor="background.paper" className={styles.profileInfoModalBody}>
         <Box className={styles.modalTopBar}>
@@ -52,19 +51,19 @@ const ProfileInfoModal = ({
             <Typography
               variant="h5"
               component="h2"
-              fontWeight={600}
               color="primary"
+              fontWeight={600}
               letterSpacing={1}
             >
-              Edit Personal Info
+              Edit Your Info
             </Typography>
             <Typography className={styles.textUnderScore}></Typography>
           </Box>
           <IconButton color="secondary" onClick={handleClose}>
             <Tooltip
+              title="Close"
               placement="right"
               TransitionComponent={Zoom}
-              title="Close Modal"
             >
               <CloseIcon fontSize="medium" />
             </Tooltip>
@@ -98,26 +97,26 @@ const ProfileInfoModal = ({
                 </Box>
               </Box>
             ) : (
-              <Box className={styles.uploadedImageBox}>
+              <Box className={styles.uploadedImageBorder}>
                 <img src={userAvatar} alt="User Name" />
               </Box>
             )}
             <Box>
               <Typography variant="body2" mb={2}>
-                Upload your picture
+                Upload your image
               </Typography>
               <Box>
                 {!userAvatar ? (
                   <label htmlFor="icon-button-file-upload">
                     <ImageInput
+                      type="file"
                       accept="image/*"
                       id="icon-button-file-upload"
-                      type="file"
                       onChange={handleImageUpload}
                     />
                     <Tooltip
                       placement="right"
-                      title="Upload Photo"
+                      title="Upload Image"
                       TransitionComponent={Zoom}
                     >
                       <Button
@@ -132,12 +131,12 @@ const ProfileInfoModal = ({
                 ) : (
                   <Tooltip
                     placement="right"
-                    title="Remove Photo"
+                    title="Remove Image"
                     TransitionComponent={Zoom}
                   >
                     <Button
-                      onClick={() => setUserAvatar(null)}
                       variant="outlined"
+                      onClick={() => setUserAvatar(null)}
                     >
                       Remove
                     </Button>
@@ -160,15 +159,13 @@ const ProfileInfoModal = ({
             </Typography>
             <Input
               disableUnderline
-              className="inputField"
-              value={
-                profileInformation.userName ? profileInformation.userName : ""
-              }
               name="userName"
-              onChange={handleProfileInformationChange}
+              className="inputField"
               variant="filled"
               size="small"
               color="secondary"
+              value={profileInformation.userName ? profileInformation.userName : ""}
+              onChange={handleProfileInformationChange}
             />
           </Stack>
           {/* Email */}
@@ -185,16 +182,14 @@ const ProfileInfoModal = ({
             </Typography>
             <Input
               disableUnderline
-              className="inputField"
-              value={
-                profileInformation.userEmail ? profileInformation.userEmail : ""
-              }
               name="userEmail"
+              className="inputField"
               type="email"
-              onChange={handleProfileInformationChange}
               variant="filled"
               size="small"
               color="secondary"
+              value={profileInformation.userEmail ? profileInformation.userEmail : "" }
+              onChange={handleProfileInformationChange}
             />
           </Stack>
           {/* Phone */}
@@ -211,30 +206,28 @@ const ProfileInfoModal = ({
             </Typography>
             <Input
               disableUnderline
-              className="inputField"
-              value={
-                profileInformation.userPhone ? profileInformation.userPhone : ""
-              }
               name="userPhone"
-              onChange={handleProfileInformationChange}
+              className="inputField"
               variant="filled"
               size="small"
               color="secondary"
               type="number"
+              value={profileInformation.userPhone ? profileInformation.userPhone : ""}
+              onChange={handleProfileInformationChange}
             />
           </Stack>
         </Box>
         {theme.palette.mode === "dark" ? (
           <Button
-            onClick={handleEdit}
-            color="primary"
-            variant="contained"
-            fullWidth
+          fullWidth
+          color="primary"
+          variant="contained"
+          onClick={handleEdit}
           >
             Save
           </Button>
         ) : (
-          <LightUIButtonPrimary onClick={handleEdit} color="primary" fullWidth>
+          <LightUIButtonPrimary color="primary" fullWidth onClick={handleEdit} >
             Save
           </LightUIButtonPrimary>
         )}

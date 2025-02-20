@@ -6,46 +6,28 @@ import {
   Paper,
   Skeleton,
   Stack,
-  Tooltip,
   Typography,
   useMediaQuery,
-  Zoom,
 } from "@mui/material";
-import BorderColorIcon from "@mui/icons-material/BorderColor";
-
-// Theme
 import { useTheme } from "@mui/material/styles";
-
-// Styles
-import styles from "../Account.module.css";
-
-// Avatar
-import AvatarImage from "../../../../assets/profileAvatar.svg";
-
-// Component Loader
+import UserProfileI from "../../../../assets/Account/userProfileI.svg";
 import ComponentLoader from "../../../../components/ProgressLoader/ComponentLoader";
 import MobileNavDrawer from "../../../../components/Layout/MobileNavDrawer";
+import styles from "../Account.module.css";
 import { ModalSkeletons } from "../../../../components/Skeletons/ComponentSkeletons";
-
+import ModeEditIcon from '@mui/icons-material/ModeEdit';
 // Lazy Image Component
-const LazyImageComponent = React.lazy(() =>
-  import("../../../../components/LazyImageComponent/LazyImageComponent")
-);
-const ProfileInfoModal = React.lazy(() =>
-  import("../ProfileInfo/ProfileInfoModal/ProfileInfoModal")
-);
-const ProfileInfoModalMobile = React.lazy(() =>
-  import("../ProfileInfo/ProfileInfoModal/ProfileInfoModalMobile")
-);
+const LazyImageComponent = React.lazy(() => import("../../../../components/LazyImageComponent/LazyImageComponent"));
+const ProfileInfoModal = React.lazy(() => import("../ProfileInfo/ProfileInfoModal/ProfileInfoModal"));
+const ProfileInfoModalMobile = React.lazy(() => import("../ProfileInfo/ProfileInfoModal/ProfileInfoModalMobile"));
 
 const ProfileInfo = ({ handleClickMenu }) => {
-  // Modal
-  const [openProfileInfoModal, setOpenProfileInfoModal] = useState(false);
 
   // Editing Personal Info
   const [isEditing, setIsEditing] = useState(false);
-  const [profileInformation, setProfileInformation] = useState({});
   const [userAvatar, setUserAvatar] = useState(null);
+  const [profileInformation, setProfileInformation] = useState({});
+  const [openProfileInfoModal, setOpenProfileInfoModal] = useState(false);
 
   const handleEdit = () => {
     setIsEditing(!isEditing);
@@ -84,14 +66,14 @@ const ProfileInfo = ({ handleClickMenu }) => {
   return (
     <React.Fragment>
       <Grid container columns={{ xs: 1, sm: 12, md: 12 }}>
-        <Grid item xs={12} sm={12} md={7}>
+        <Grid item xs={12} sm={12} md={12}>
           <Box className={styles.profileInfo}>
             {/* Header */}
             <Box className={styles.infoContentTitleBox}>
               <Stack
                 direction="row"
-                justifyContent="space-between"
                 alignItems="center"
+                justifyContent="space-between"
               >
                 <Typography
                   variant={!isMobile ? "h6" : "subtitle1"}
@@ -101,19 +83,19 @@ const ProfileInfo = ({ handleClickMenu }) => {
                 </Typography>
                 <Box
                   onClick={handleOpenProfileInfoModal}
+                  p={"2px"}
                   bgcolor={
                     theme.palette.mode === "dark"
                       ? theme.palette.background.paper
                       : "rgba(234, 234,234, 0.3)"
                   }
-                  p={"2px"}
                   borderRadius="2px"
                 >
                   <IconButton
-                    size={!isMobile ? "medium" : "small"}
+                    size={isMobile ? "small" : "medium"}
                     color="secondary"
                   >
-                    <BorderColorIcon fontSize="small" />
+                    <ModeEditIcon fontSize="small" />
                   </IconButton>
                 </Box>
               </Stack>
@@ -125,50 +107,44 @@ const ProfileInfo = ({ handleClickMenu }) => {
                 className={styles.infoContentBox}
               >
                 <Box>
-                  <Tooltip
-                    title="A photo helps personalize your account"
-                    placement="right"
-                    TransitionComponent={Zoom}
-                  >
                     <Typography
                       variant={!isMobile ? "body1" : "body2"}
                       color="secondary"
                     >
                       Photo
                     </Typography>
-                  </Tooltip>
                 </Box>
                 <Box>
                   {userAvatar ? (
                     <Suspense
                       fallback={
                         <Skeleton
-                          animation="wave"
-                          variant="circular"
                           width={40}
                           height={40}
+                          animation="wave"
+                          variant="circular"
                         />
                       }
                     >
                       <LazyImageComponent
-                        className={styles.avatarImage}
                         src={userAvatar}
+                        className={styles.avatarImage}
                       />
                     </Suspense>
                   ) : (
                     <Suspense
                       fallback={
                         <Skeleton
-                          animation="wave"
-                          variant="circular"
                           width={40}
                           height={40}
+                          animation="wave"
+                          variant="circular"
                         />
                       }
                     >
                       <LazyImageComponent
                         className={styles.avatarImage}
-                        src={AvatarImage}
+                        src={UserProfileI}
                       />
                     </Suspense>
                   )}
@@ -186,12 +162,10 @@ const ProfileInfo = ({ handleClickMenu }) => {
                   Name
                 </Typography>
                 <Typography
-                  variant={!isMobile ? "body1" : "body2"}
                   color="text.secondary"
+                  variant={!isMobile ? "body1" : "body2"}
                 >
-                  {profileInformation.userName
-                    ? profileInformation.userName
-                    : "John Doe"}
+                  {profileInformation.userName ? profileInformation.userName : "John Doe"}
                 </Typography>
               </Box>
               {/* Email */}
@@ -209,9 +183,7 @@ const ProfileInfo = ({ handleClickMenu }) => {
                   variant={!isMobile ? "body1" : "body2"}
                   color="text.secondary"
                 >
-                  {profileInformation.userEmail
-                    ? profileInformation.userEmail
-                    : "john@doe.com"}
+                  {profileInformation.userEmail ? profileInformation.userEmail : "john@doe.com"}
                 </Typography>
               </Box>
               {/* Phone */}
@@ -229,9 +201,7 @@ const ProfileInfo = ({ handleClickMenu }) => {
                   variant={!isMobile ? "body1" : "body2"}
                   color="text.secondary"
                 >
-                  {profileInformation.userPhone
-                    ? profileInformation.userPhone
-                    : "+123 111222333"}
+                  {profileInformation.userPhone ? profileInformation.userPhone : "+91 9876543210"}
                 </Typography>
               </Box>
             </Paper>
@@ -240,19 +210,19 @@ const ProfileInfo = ({ handleClickMenu }) => {
       </Grid>
       {isMobile && (
         <MobileNavDrawer
+          topBarContent={"Edit Your Info"}
           drawerOpen={openProfileInfoModal}
-          handleDrawerToggle={handleProfileInfoDrawer}
-          topBarContent={"Edit Personal Info"}
           handleClickMenu={handleClickMenu}
+          handleDrawerToggle={handleProfileInfoDrawer}
         >
           <Suspense fallback={<ComponentLoader />}>
             <ProfileInfoModalMobile
-              handleEdit={handleEdit}
-              profileInformation={profileInformation}
-              handleProfileInformationChange={handleProfileInformationChange}
               userAvatar={userAvatar}
-              handleImageUpload={handleImageUpload}
+              profileInformation={profileInformation}
               setUserAvatar={setUserAvatar}
+              handleEdit={handleEdit}
+              handleImageUpload={handleImageUpload}
+              handleProfileInformationChange={handleProfileInformationChange}
             />
           </Suspense>
         </MobileNavDrawer>
@@ -260,14 +230,14 @@ const ProfileInfo = ({ handleClickMenu }) => {
       {!isMobile && (
         <Suspense fallback={<ModalSkeletons width={500} />}>
           <ProfileInfoModal
-            open={openProfileInfoModal}
-            handleClose={handleCloseProfileInfoModal}
-            handleEdit={handleEdit}
-            profileInformation={profileInformation}
-            handleProfileInformationChange={handleProfileInformationChange}
             userAvatar={userAvatar}
-            handleImageUpload={handleImageUpload}
+            open={openProfileInfoModal}
             setUserAvatar={setUserAvatar}
+            profileInformation={profileInformation}
+            handleEdit={handleEdit}
+            handleImageUpload={handleImageUpload}
+            handleClose={handleCloseProfileInfoModal}
+            handleProfileInformationChange={handleProfileInformationChange}
           />
         </Suspense>
       )}

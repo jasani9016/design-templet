@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import {
+  Modal,
   Divider,
   Zoom,
-  IconButton,
-  Modal,
   Tooltip,
-  Typography,
-  Button,
-  Stack,
   InputAdornment,
-  Input,
+  Typography,
   useTheme,
+  IconButton,
+  Button,
+  Input,
+  Stack,
 } from "@mui/material";
 import { Box } from "@mui/system";
 import CloseIcon from "@mui/icons-material/Close";
@@ -25,28 +25,28 @@ import styles from "../Account.module.css";
 import useAuth from "../../../../hooks/useAuth";
 
 const ChangePasswordModal = ({ open, handleClose }) => {
-  const [userPassword, setUserPassword] = useState({});
   const [passError, setPassError] = useState("");
-  const [showPasswordCurrent, setShowPasswordCurrent] = useState(false);
+  const [userPassword, setUserPassword] = useState({});
   const [showPasswordNew, setShowPasswordNew] = useState(false);
+  const [showPasswordCurrent, setShowPasswordCurrent] = useState(false);
   const [showPasswordConfirmed, setShowPasswordConfirmed] = useState(false);
 
-  const { logOut } = useAuth();
   const theme = useTheme();
+  const { logOut } = useAuth();
 
   const handleChangePassword = (e) => {
-    const field = e.target.name;
+    const name = e.target.name;
     const value = e.target.value;
 
     const newUserPassword = { ...userPassword };
-    newUserPassword[field] = value;
+    newUserPassword[name] = value;
     setUserPassword(newUserPassword);
   };
 
   const handleSubmitUserPassword = (e) => {
     e.preventDefault();
 
-    if (userPassword.passwordNew !== userPassword.passwordNewConfirmed) {
+    if (userPassword?.passwordNew !== userPassword?.passwordNewConfirmed) {
       setPassError("Password doesn't match!");
     } else if (!userPassword.passwordNew) {
       setPassError("You can't save unless you enter a new password");
@@ -60,10 +60,10 @@ const ChangePasswordModal = ({ open, handleClose }) => {
 
   return (
     <Modal
+      open={open}
+      keepMounted
       disableAutoFocus
       disableEnforceFocus
-      keepMounted
-      open={open}
       onClose={handleClose}
     >
       <Box
@@ -77,8 +77,8 @@ const ChangePasswordModal = ({ open, handleClose }) => {
           <IconButton color="secondary" onClick={handleClose}>
             <Tooltip
               placement="right"
+              title="Close"
               TransitionComponent={Zoom}
-              title="Close Modal"
             >
               <CloseIcon fontSize="medium" />
             </Tooltip>
@@ -118,11 +118,11 @@ const ChangePasswordModal = ({ open, handleClose }) => {
                 </InputAdornment>
               }
               name="passwordOld"
-              onChange={handleChangePassword}
-              type={showPasswordCurrent ? "text" : "password"}
               variant="filled"
               color="secondary"
               size="small"
+              type={showPasswordCurrent ? "text" : "password"}
+              onChange={handleChangePassword}
             />
           </Stack>
           <Stack spacing={1} mb={2}>
@@ -153,11 +153,11 @@ const ChangePasswordModal = ({ open, handleClose }) => {
                 </InputAdornment>
               }
               name="passwordNew"
-              onChange={handleChangePassword}
-              type={showPasswordNew ? "text" : "password"}
               variant="outlined"
               color="secondary"
               size="small"
+              type={showPasswordNew ? "text" : "password"}
+              onChange={handleChangePassword}
             />
           </Stack>
           <Stack spacing={1} mb={2}>
@@ -191,22 +191,27 @@ const ChangePasswordModal = ({ open, handleClose }) => {
               }
               error={passError ? true : false}
               name="passwordNewConfirmed"
-              onChange={handleChangePassword}
-              type={showPasswordConfirmed ? "text" : "password"}
               variant="outlined"
               color="secondary"
               size="small"
+              type={showPasswordConfirmed ? "text" : "password"}
+              onChange={handleChangePassword}
             />
             <Typography variant="caption" color="error">
               {passError && passError}
             </Typography>
           </Stack>
           {theme.palette.mode === "dark" ? (
-            <Button type="submit" color="primary" variant="contained" fullWidth>
+            <Button 
+              fullWidth
+              type="submit" 
+              color="primary"
+              variant="contained" 
+             >
               Save
             </Button>
           ) : (
-            <LightUIButtonPrimary type="submit" fullWidth>
+            <LightUIButtonPrimary fullWidth type="submit" >
               Save
             </LightUIButtonPrimary>
           )}

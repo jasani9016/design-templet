@@ -3,12 +3,12 @@
 }
 
 .timeLineArea {
-  margin-top: 1rem;
   display: flex;
+  height: 300px;
+  margin-top: 16px;
+  overflow-y: auto;
   flex-direction: column;
   justify-content: flex-start;
-  height: 300px;
-  overflow-y: auto;
 }
 
 .timeLineArea::-webkit-scrollbar {
@@ -20,20 +20,17 @@
 }
 
 .timeLineDivider {
-  margin-left: 1.7rem;
-  margin-bottom: 5px;
-  margin-top: 5px;
   height: 20px;
   width: 3px;
+  margin: 5px 0px 5px 27px;
 }
 
 .numberArea {
+  display: flex;
   margin-top: 5px;
   margin-bottom: 5px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 10px 1rem;
+  padding: 10px 16px;
   border-radius: 4px;
-  /* width: 11%; */
+  align-items: center;
+  justify-content: center;
 }

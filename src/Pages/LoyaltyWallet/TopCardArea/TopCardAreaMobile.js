@@ -15,27 +15,14 @@ import BronzeBadgeIcon from "../../../assets/bronzeBadgeIcon.svg";
 import SilverBadgeIcon from "../../../assets/silverBadgeIcon.svg";
 import GoldBadgeIcon from "../../../assets/goldBadgeIcon.svg";
 import DiamonBadgeIcon from "../../../assets/diamondBadgeIcon.svg";
-
-// Styles
 import styles from "./TopCardArea.module.css";
-
-// Theme
 import { useTheme } from "@mui/material/styles";
-
-// Custom linear progressbar
 import { BorderLinearProgressMobile } from "../../../components/ProgressLoader/CustomProgress";
 import MobileNavDrawer from "../../../components/Layout/MobileNavDrawer";
-
-// Component Loader
 import ComponentLoader from "../../../components/ProgressLoader/ComponentLoader";
 
-// Lazy Image component
-const LazyImageComponent = React.lazy(() =>
-  import("../../../components/LazyImageComponent/LazyImageComponent")
-);
-const RewardPathAreaMobile = React.lazy(() =>
-  import("../RewardPathArea/RewardPathAreaMobile")
-);
+const LazyImageComponent = React.lazy(() => import("../../../components/LazyImageComponent/LazyImageComponent"));
+const RewardPathAreaMobile = React.lazy(() => import("../RewardPathArea/RewardPathAreaMobile"));
 
 const TopCardAreaMobile = ({ handleConfetti }) => {
   const [progressValue, setProgressValue] = useState(0);
@@ -60,15 +47,17 @@ const TopCardAreaMobile = ({ handleConfetti }) => {
   }, [progressValue]);
 
   const handleBadgeButton = (badgeName) => {
-    if (badgeName === "gold") {
-      setProgressValue((prevProgress) =>
-        prevProgress >= 55 ? 70 : prevProgress + 5
-      );
-      handleConfetti();
-    } else if (badgeName === "diamond") {
-      setProgressValue((prevProgress) => (prevProgress < 100 ? 100 : 0));
-      handleConfetti();
-    }
+    setProgressValue((prevProgress) => {
+      switch (badgeName) {
+        case "gold":
+          return Math.min(prevProgress + 5, 70); // Caps at 70
+        case "diamond":
+          return prevProgress < 100 ? 100 : prevProgress; // Sets to 100 if below 100
+        default:
+          return prevProgress; // No change for unknown badge
+      }
+    });
+    handleConfetti();
   };
 
   return (
@@ -110,11 +99,11 @@ const TopCardAreaMobile = ({ handleConfetti }) => {
       >
         <Stack direction="column">
           <Typography variant="caption" color="secondary">
-            52 more points for Gold badge
+            6 more points for Gold badge
           </Typography>
           <Typography variant="caption" color="secondary">
             <Typography variant="caption" component="span" color="primary">
-              10,040
+              5000
             </Typography>{" "}
             Points Earned till now
           </Typography>

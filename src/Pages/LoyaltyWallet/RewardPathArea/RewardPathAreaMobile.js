@@ -1,33 +1,22 @@
 import React, { Suspense } from "react";
 import { Box } from "@mui/system";
 import {
-  Button,
   Chip,
+  Typography,
+  Stack,
+  Button,
   IconButton,
   Skeleton,
-  Stack,
-  Typography,
 } from "@mui/material";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import MenuIcon from "@mui/icons-material/Menu";
-
-// Avatar
-import ProfileAvatar from "../../../assets/profileAvatar.svg";
-
-// Theme
 import { useTheme } from "@mui/material/styles";
-
-// Styles
 import styles from "./RewardPathArea.module.css";
-
-// Component Loader
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import ProfileAvatar from "../../../assets/profileAvatar.svg";
 import ComponentLoader from "../../../components/ProgressLoader/ComponentLoader";
 
-// Lazy Component
-const LazyImageComponent = React.lazy(() =>
-  import("../../../components/LazyImageComponent/LazyImageComponent")
-);
 const TimeLineArea = React.lazy(() => import("../TimeLineArea/TimeLineArea"));
+const LazyImageComponent = React.lazy(() => import("../../../components/LazyImageComponent/LazyImageComponent"));
 
 const RewardPathAreaMobile = ({ handleCloseNav }) => {
   const theme = useTheme();

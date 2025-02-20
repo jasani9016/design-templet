@@ -1,37 +1,22 @@
 import React, { Suspense } from "react";
 import {
   Box,
-  Typography,
-  Button,
+  Grid,
+  Alert,
   Stack,
+  Button,
   Skeleton,
   Snackbar,
-  Alert,
-  Grid,
+  Typography,
 } from "@mui/material";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-
-// Image
-import DominosPizzaImage from "../../../assets/dominosPizza.svg";
-
-// Styles
 import styles from "./RewardTabArea.module.css";
-
-// Custom Theme
 import { useTheme } from "@mui/material/styles";
-
-// Component Loader
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import DominosPizzaImage from "../../../assets/dominosPizza.svg";
 import { ModalSkeletons } from "../../../components/Skeletons/ComponentSkeletons";
 
-// Lazy Image Component
-const LazyImageComponent = React.lazy(() =>
-  import("../../../components/LazyImageComponent/LazyImageComponent")
-);
-
-// Modal
-const ClaimRewardModal = React.lazy(() =>
-  import("../ClaimRewardModal/ClaimRewardModal")
-);
+const LazyImageComponent = React.lazy(() => import("../../../components/LazyImageComponent/LazyImageComponent"));
+const ClaimRewardModal = React.lazy(() => import("../ClaimRewardModal/ClaimRewardModal"));
 
 // Fake Available Rewards
 const availableRewardData = [
@@ -71,12 +56,13 @@ const availableRewardData = [
     status: "locked",
   },
 ];
+
 const AvailableRewardsMobile = () => {
   const [openRewardModal, setOpenRewardModal] = React.useState(false);
   const [openSnackbar, setOpenSnackbar] = React.useState(false);
 
   const theme = useTheme();
-  // Modal Handler
+
   const handleOpenRewardModal = () => {
     setOpenRewardModal(true);
   };
@@ -85,7 +71,6 @@ const AvailableRewardsMobile = () => {
     setOpenRewardModal(false);
   };
 
-  // Snackbar Handler
   const handleOpenSnackBar = () => {
     setOpenRewardModal(false);
     setOpenSnackbar(true);

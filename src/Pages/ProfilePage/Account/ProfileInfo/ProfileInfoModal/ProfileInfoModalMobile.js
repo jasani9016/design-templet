@@ -25,11 +25,11 @@ const ImageInput = styled("input")({
 
 const ProfileInfoModalMobile = ({
   profileInformation,
-  handleProfileInformationChange,
-  handleEdit,
   userAvatar,
-  handleImageUpload,
   setUserAvatar,
+  handleEdit,
+  handleImageUpload,
+  handleProfileInformationChange,
 }) => {
   const theme = useTheme();
   return (
@@ -61,26 +61,26 @@ const ProfileInfoModalMobile = ({
                     }`,
                   }}
                 >
-                  <AddPhotoAlternateIcon sx={{ fontSize: "2rem" }} />
+                  <AddPhotoAlternateIcon sx={{ fontSize: "32px" }} />
                 </Typography>
               </Box>
             </Box>
           ) : (
-            <Box className={styles.uploadedImageBox}>
+            <Box className={styles.uploadedImageBorder}>
               <img src={userAvatar} alt="User Name" />
             </Box>
           )}
           <Box>
             <Typography variant="body2" mb={2}>
-              Upload your picture
+              Upload your image
             </Typography>
             <Box>
               {!userAvatar ? (
                 <label htmlFor="icon-button-file-upload">
                   <ImageInput
+                    type="file"
                     accept="image/*"
                     id="icon-button-file-upload"
-                    type="file"
                     onChange={handleImageUpload}
                   />
                   <Tooltip
@@ -89,9 +89,9 @@ const ProfileInfoModalMobile = ({
                     TransitionComponent={Zoom}
                   >
                     <Button
+                      component="span"
                       variant="outlined"
                       aria-label="upload picture"
-                      component="span"
                     >
                       Upload
                     </Button>
@@ -104,8 +104,8 @@ const ProfileInfoModalMobile = ({
                   TransitionComponent={Zoom}
                 >
                   <Button
-                    onClick={() => setUserAvatar(null)}
                     variant="outlined"
+                    onClick={() => setUserAvatar(null)}
                   >
                     Remove
                   </Button>
@@ -126,72 +126,62 @@ const ProfileInfoModalMobile = ({
           </Typography>
           <Input
             disableUnderline
-            className="inputField"
-            value={
-              profileInformation.userName ? profileInformation.userName : ""
-            }
             name="userName"
-            onChange={handleProfileInformationChange}
+            className="inputField"
             variant="filled"
             size="small"
             color="secondary"
+            onChange={handleProfileInformationChange}
+            value={profileInformation.userName ? profileInformation.userName : ""}
           />
         </Stack>
         {/* Email */}
         <Stack spacing={1} mb={2}>
           <Typography
             variant="body2"
-            color={
-              theme.palette.mode === "dark" ? "text.secondary" : "common.black"
-            }
+            color={theme.palette.mode === "dark" ? "text.secondary" : "common.black"}
           >
             Email
           </Typography>
           <Input
             disableUnderline
-            className="inputField"
-            value={
-              profileInformation.userEmail ? profileInformation.userEmail : ""
-            }
             name="userEmail"
+            className="inputField"
             type="email"
-            onChange={handleProfileInformationChange}
             variant="filled"
             size="small"
             color="secondary"
+            value={profileInformation.userEmail ? profileInformation.userEmail : ""}
+            onChange={handleProfileInformationChange}
           />
         </Stack>
         {/* Phone */}
         <Stack spacing={1} mb={2}>
           <Typography
             variant="body2"
-            color={
-              theme.palette.mode === "dark" ? "text.secondary" : "common.black"
-            }
+            color={theme.palette.mode === "dark" ? "text.secondary" : "common.black"}
           >
             Phone
           </Typography>
           <Input
             disableUnderline
-            className="inputField"
-            value={
-              profileInformation.userPhone ? profileInformation.userPhone : ""
-            }
             name="userPhone"
-            onChange={handleProfileInformationChange}
+            className="inputField"
+            type="number"
             variant="filled"
             size="small"
             color="secondary"
-            type="number"
+            value={profileInformation.userPhone ? profileInformation.userPhone : ""}
+            onChange={handleProfileInformationChange}
           />
         </Stack>
       </Box>
       {theme.palette.mode === "dark" ? (
         <Button
-          onClick={handleEdit}
+          fullWidth
           color="primary"
           variant="contained"
-          fullWidth
+          onClick={handleEdit}
         >
           Save
         </Button>

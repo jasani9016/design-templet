@@ -7,10 +7,9 @@ import styles from "../../Account.module.css";
 import { LightUIButtonPrimary } from "../../../../../Utilities/LightUIButtons";
 
 const AddBankModalMobile = ({
-  handleAddBankInformationChange,
-  addBankInformation,
-  handleSaveNewAddBank,
   handleClose,
+  addBankInformation,
+  handleAddBankInformationChange,
 }) => {
   const theme = useTheme();
 
@@ -35,15 +34,13 @@ const AddBankModalMobile = ({
           </Typography>
           <Input
             disableUnderline
-            className="inputField"
-            value={
-              addBankInformation.bankName ? addBankInformation.bankName : ""
-            }
             name="bankName"
-            onChange={handleAddBankInformationChange}
+            className="inputField"
             variant="filled"
             size="small"
             color="secondary"
+            value={ addBankInformation.bankName ? addBankInformation.bankName : "" }
+            onChange={handleAddBankInformationChange}
           />
         </Stack>
         {/* IFSC */}
@@ -58,15 +55,13 @@ const AddBankModalMobile = ({
           </Typography>
           <Input
             disableUnderline
-            className="inputField"
-            value={
-              addBankInformation.bankIFSC ? addBankInformation.bankIFSC : ""
-            }
             name="bankIFSC"
-            onChange={handleAddBankInformationChange}
+            className="inputField"
             variant="filled"
             size="small"
             color="secondary"
+            value={ addBankInformation.bankIFSC ? addBankInformation.bankIFSC : "" }
+            onChange={handleAddBankInformationChange}
           />
         </Stack>
         {/* Account Holder */}
@@ -81,26 +76,22 @@ const AddBankModalMobile = ({
           </Typography>
           <Input
             disableUnderline
-            className="inputField"
-            value={
-              addBankInformation.bankAccountHolderName
-                ? addBankInformation.bankAccountHolderName
-                : ""
-            }
             name="bankAccountHolderName"
-            onChange={handleAddBankInformationChange}
+            className="inputField"
             variant="filled"
             size="small"
             color="secondary"
+            value={ addBankInformation.bankAccountHolderName ? addBankInformation.bankAccountHolderName : "" }
+            onChange={handleAddBankInformationChange}
           />
         </Stack>
       </Box>
       {theme.palette.mode === "dark" ? (
         <Button
-          onClick={handleClose}
+          fullWidth
           color="primary"
           variant="contained"
-          fullWidth
+          onClick={handleClose}
         >
           Save
         </Button>

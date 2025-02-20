@@ -10,8 +10,8 @@ import { useNavigate } from "react-router-dom";
 import { LightUIButtonPrimary } from "../../../../Utilities/LightUIButtons";
 
 const DeleteAccountModalMobile = () => {
-  const navigate = useNavigate();
   const theme = useTheme();
+  const navigate = useNavigate();
 
   return (
     <Box
@@ -24,29 +24,28 @@ const DeleteAccountModalMobile = () => {
       <Box className={styles.deleteAccountModalContentBox}>
         <Typography
           mb={3}
-          textAlign="center"
           lineHeight={2}
-          color="secondary"
           variant="body2"
+          color="secondary"
+          textAlign="center"
         >
-          Are you sure you want to delete your account? Once deleted, it can't
-          be recovered again.
+          Are you sure you want to delete your account? Once deleted, it can't be recovered again.
         </Typography>
       </Box>
       {theme.palette.mode === "dark" ? (
         <Button
-          onClick={() => navigate("/registration/sign-up")}
+          fullWidth
           color="primary"
           variant="contained"
-          fullWidth
+          onClick={() => navigate("/registration/sign-up")}
         >
           <Typography
-            variant="caption"
             className={styles.deleteAccountModalButton}
+            variant="caption"
             color="common.black"
             fontWeight={700}
           >
-            Yes, delete my account
+            Yes, delete my account!
           </Typography>
         </Button>
       ) : (
@@ -55,12 +54,12 @@ const DeleteAccountModalMobile = () => {
           onClick={() => navigate("/registration/sign-up")}
         >
           <Typography
-            variant="caption"
             className={styles.deleteAccountModalButton}
+            variant="caption"
             color="common.white"
             fontWeight={700}
           >
-            Yes, delete my account
+            Yes, delete my account!
           </Typography>
         </LightUIButtonPrimary>
       )}

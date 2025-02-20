@@ -1,15 +1,15 @@
 import React from "react";
 import {
-  Button,
+  Modal,
   Divider,
   IconButton,
+  Button,
   Input,
-  Modal,
-  Stack,
-  Tooltip,
   Typography,
-  useTheme,
+  Stack,
   Zoom,
+  Tooltip,
+  useTheme,
 } from "@mui/material";
 import { Box } from "@mui/system";
 import CloseIcon from "@mui/icons-material/Close";
@@ -20,19 +20,19 @@ import { LightUIButtonPrimary } from "../../../../../Utilities/LightUIButtons";
 
 const BankInfoModal = ({
   open,
+  handleEdit,
   handleClose,
   bankInformation,
   handleBankInformationChange,
-  handleEdit,
 }) => {
   const theme = useTheme();
 
   return (
     <Modal
+      open={open}
+      keepMounted
       disableAutoFocus
       disableEnforceFocus
-      keepMounted
-      open={open}
       onClose={handleClose}
     >
       <Box bgcolor="background.paper" className={styles.bankInfoModalBody}>
@@ -41,8 +41,8 @@ const BankInfoModal = ({
             <Typography
               variant="h5"
               component="h2"
-              fontWeight={600}
               color="primary"
+              fontWeight={600}
               letterSpacing={1}
             >
               Edit Bank Info
@@ -52,8 +52,8 @@ const BankInfoModal = ({
           <IconButton color="secondary" onClick={handleClose}>
             <Tooltip
               placement="right"
+              title="Close"
               TransitionComponent={Zoom}
-              title="Close Modal"
             >
               <CloseIcon fontSize="medium" />
             </Tooltip>
@@ -75,13 +75,13 @@ const BankInfoModal = ({
             </Typography>
             <Input
               disableUnderline
-              className="inputField"
-              value={bankInformation.bankName ? bankInformation.bankName : ""}
               name="bankName"
-              onChange={handleBankInformationChange}
+              className="inputField"
               variant="filled"
               size="small"
               color="secondary"
+              value={bankInformation.bankName ? bankInformation.bankName : ""}
+              onChange={handleBankInformationChange}
             />
           </Stack>
           {/* IFSC */}
@@ -98,13 +98,13 @@ const BankInfoModal = ({
             </Typography>
             <Input
               disableUnderline
-              className="inputField"
-              value={bankInformation.bankIFSC ? bankInformation.bankIFSC : ""}
               name="bankIFSC"
-              onChange={handleBankInformationChange}
+              className="inputField"
               variant="filled"
               size="small"
               color="secondary"
+              value={bankInformation.bankIFSC ? bankInformation.bankIFSC : ""}
+              onChange={handleBankInformationChange}
             />
           </Stack>
           {/* Account Holder */}
@@ -121,17 +121,36 @@ const BankInfoModal = ({
             </Typography>
             <Input
               disableUnderline
-              className="inputField"
-              value={
-                bankInformation.bankAccountHolderName
-                  ? bankInformation.bankAccountHolderName
-                  : ""
-              }
               name="bankAccountHolderName"
-              onChange={handleBankInformationChange}
+              className="inputField"
               variant="filled"
               size="small"
               color="secondary"
+              value={ bankInformation.bankAccountHolderName ? bankInformation.bankAccountHolderName : "" }
+              onChange={handleBankInformationChange}
+            />
+          </Stack>
+          {/* Account Type */}
+          <Stack spacing={1} mb={2}>
+            <Typography
+              variant="body2"
+              color={
+                theme.palette.mode === "dark"
+                  ? "text.secondary"
+                  : "common.black"
+              }
+            >
+              Account Type
+            </Typography>
+            <Input
+              disableUnderline
+              name="bankAccountType"
+              className="inputField"
+              variant="filled"
+              size="small"
+              color="secondary"
+              value={ bankInformation.bankAccountType ? bankInformation.bankAccountType : "" }
+              onChange={handleBankInformationChange}
             />
           </Stack>
         </Box>

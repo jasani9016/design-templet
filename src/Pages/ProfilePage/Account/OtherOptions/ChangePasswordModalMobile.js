@@ -20,14 +20,14 @@ import styles from "../Account.module.css";
 import useAuth from "../../../../hooks/useAuth";
 
 const ChangePasswordModalMobile = ({ handleClose }) => {
-  const [userPassword, setUserPassword] = useState({});
   const [passError, setPassError] = useState("");
-  const [showPasswordCurrent, setShowPasswordCurrent] = useState(false);
+  const [userPassword, setUserPassword] = useState({});
   const [showPasswordNew, setShowPasswordNew] = useState(false);
+  const [showPasswordCurrent, setShowPasswordCurrent] = useState(false);
   const [showPasswordConfirmed, setShowPasswordConfirmed] = useState(false);
 
-  const { logOut } = useAuth();
   const theme = useTheme();
+  const { logOut } = useAuth();
 
   const handleChangePassword = (e) => {
     const field = e.target.name;
@@ -92,11 +92,11 @@ const ChangePasswordModalMobile = ({ handleClose }) => {
               </InputAdornment>
             }
             name="passwordOld"
-            onChange={handleChangePassword}
             type={showPasswordCurrent ? "text" : "password"}
             variant="filled"
             color="secondary"
             size="small"
+            onChange={handleChangePassword}
           />
         </Stack>
         <Stack spacing={1} mb={2}>
@@ -121,11 +121,11 @@ const ChangePasswordModalMobile = ({ handleClose }) => {
               </InputAdornment>
             }
             name="passwordNew"
-            onChange={handleChangePassword}
             type={showPasswordNew ? "text" : "password"}
             variant="outlined"
             color="secondary"
             size="small"
+            onChange={handleChangePassword}
           />
         </Stack>
         <Stack spacing={1} mb={2}>
@@ -157,18 +157,23 @@ const ChangePasswordModalMobile = ({ handleClose }) => {
             }
             error={passError ? true : false}
             name="passwordNewConfirmed"
-            onChange={handleChangePassword}
             type={showPasswordConfirmed ? "text" : "password"}
             variant="outlined"
             color="secondary"
             size="small"
+            onChange={handleChangePassword}
           />
           <Typography variant="caption" color="error">
             {passError && passError}
           </Typography>
         </Stack>
         {theme.palette.mode === "dark" ? (
-          <Button type="submit" color="primary" variant="contained" fullWidth>
+          <Button 
+            type="submit" 
+            color="primary" 
+            variant="contained" 
+            fullWidth
+          >
             Save
           </Button>
         ) : (

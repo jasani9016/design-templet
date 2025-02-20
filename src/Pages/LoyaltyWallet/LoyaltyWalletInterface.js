@@ -1,31 +1,18 @@
 import React, { Suspense, useState } from "react";
 import { Box } from "@mui/system";
-import { Grid, useMediaQuery, useTheme } from "@mui/material";
-import useWindowSize from "react-use/lib/useWindowSize";
 import Confetti from "react-confetti";
-
-// Styles
+import useWindowSize from "react-use/lib/useWindowSize";
 import styles from "./LoyaltyWalletInterface.module.css";
-
-// Component Loader
+import { Grid, useMediaQuery, useTheme } from "@mui/material";
 import {
   CardSkeleton,
   ComponentSkeleton,
 } from "../../components/Skeletons/ComponentSkeletons";
 
-// Lazy Component
-const TopCardArea = React.lazy(() =>
-  import("../LoyaltyWallet/TopCardArea/TopCardArea")
-);
-const TopCardAreaMobile = React.lazy(() =>
-  import("../LoyaltyWallet/TopCardArea/TopCardAreaMobile")
-);
-const RewardPathArea = React.lazy(() =>
-  import("../LoyaltyWallet/RewardPathArea/RewardPathArea")
-);
-const RewardTabArea = React.lazy(() =>
-  import("../LoyaltyWallet/RewardTabArea/RewardTabArea")
-);
+const TopCardArea = React.lazy(() => import("../LoyaltyWallet/TopCardArea/TopCardArea"));
+const TopCardAreaMobile = React.lazy(() => import("../LoyaltyWallet/TopCardArea/TopCardAreaMobile"));
+const RewardPathArea = React.lazy(() => import("../LoyaltyWallet/RewardPathArea/RewardPathArea"));
+const RewardTabArea = React.lazy(() => import("../LoyaltyWallet/RewardTabArea/RewardTabArea"));
 
 const LoyaltyWalletInterface = () => {
   const [showConfetti, setShowConfetti] = useState(false);

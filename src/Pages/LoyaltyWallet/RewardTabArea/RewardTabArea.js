@@ -1,30 +1,18 @@
 import React, { Suspense } from "react";
 import { Box } from "@mui/system";
 import { Tab, Tabs, useTheme, useMediaQuery } from "@mui/material";
-
-// Styles
 import styles from "./RewardTabArea.module.css";
-
-// Custom Tabpanel
 import TabPanel from "../../../components/TabPanel/TabPanel";
-
-// Skeletons
 import {
   GridCardSkeleton,
   TableSkeleton,
 } from "../../../components/Skeletons/ComponentSkeletons";
 
 // Lazy Component
-const AvailableRewards = React.lazy(() =>
-  import("../RewardTabArea/AvailableRewards")
-);
-const AvailableRewardsMobile = React.lazy(() =>
-  import("../RewardTabArea/AvailableRewardsMobile")
-);
+const AvailableRewards = React.lazy(() => import("../RewardTabArea/AvailableRewards"));
+const AvailableRewardsMobile = React.lazy(() => import("../RewardTabArea/AvailableRewardsMobile"));
 const MyRewards = React.lazy(() => import("../RewardTabArea/MyRewards"));
-const MyRewardsMobile = React.lazy(() =>
-  import("../RewardTabArea/MyRewardsMobile")
-);
+const MyRewardsMobile = React.lazy(() => import("../RewardTabArea/MyRewardsMobile"));
 const Transaction = React.lazy(() => import("../RewardTabArea/Transaction"));
 
 const RewardTabArea = () => {
@@ -112,7 +100,6 @@ const RewardTabArea = () => {
             </Suspense>
           </Box>
         </TabPanel>
-        {/* Transactions */}
         <TabPanel value={tabValue} index={2}>
           <Box className={styles.tabPanel}>
             <Suspense fallback={<TableSkeleton />}>

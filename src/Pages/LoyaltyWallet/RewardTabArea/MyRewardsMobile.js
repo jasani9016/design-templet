@@ -1,19 +1,10 @@
 import React, { Suspense } from "react";
 import { Box, Typography, Skeleton, Stack } from "@mui/material";
-
-// Image
 import DominosPizzaImage from "../../../assets/dominosPizza.svg";
-
-// Styles
 import styles from "./RewardTabArea.module.css";
-
-// Custom Theme
 import { useTheme } from "@mui/material/styles";
 
-// Lazy Image Component
-const LazyImageComponent = React.lazy(() =>
-  import("../../../components/LazyImageComponent/LazyImageComponent")
-);
+const LazyImageComponent = React.lazy(() => import("../../../components/LazyImageComponent/LazyImageComponent"));
 
 // Fake Available Rewards
 const availableRewardData = [

@@ -75,7 +75,7 @@ const AccountSetupStep = () => {
         )}
         <Box>
           <Typography variant="body2" mb={2}>
-            Upload your picture
+            Upload your image
           </Typography>
           <Box>
             {!userAvatar ? (

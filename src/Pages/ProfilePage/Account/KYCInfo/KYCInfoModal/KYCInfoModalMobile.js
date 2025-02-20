@@ -90,6 +90,31 @@ const KYCInfoModalMobile = ({
             type="number"
           />
         </Stack>
+        {/* Pan Card */}
+        <Stack spacing={1} mb={2}>
+          <Typography
+            variant="body2"
+            color={
+              theme.palette.mode === "dark" ? "text.secondary" : "common.black"
+            }
+          >
+            Pan Card
+          </Typography>
+          <Input
+            disableUnderline
+            className="inputField"
+            value={
+              KYCInformation.panCardNumber
+                ? KYCInformation.panCardNumber
+                : ""
+            }
+            name="panCardNumber"
+            onChange={handleKYCInformationChange}
+            variant="filled"
+            size="small"
+            color="secondary"
+          />
+        </Stack>
       </Box>
       {theme.palette.mode === "dark" ? (
         <Button

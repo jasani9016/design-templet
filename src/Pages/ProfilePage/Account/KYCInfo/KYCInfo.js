@@ -86,7 +86,7 @@ const KYCInfo = ({ handleClickMenu }) => {
         </Suspense>
       )}
       <Grid container columns={{ xs: 1, sm: 12, md: 12 }}>
-        <Grid item xs={12} sm={12} md={7}>
+        <Grid item xs={12} sm={12} md={12}>
           <Box className={styles.kycInfo}>
             {/* Header */}
             <Box className={styles.infoContentTitleBox}>
@@ -236,7 +236,7 @@ const KYCInfo = ({ handleClickMenu }) => {
                 >
                   {KYCInformation.address
                     ? KYCInformation.address
-                    : "Room: 113, International Space Morgue, Lunar Cycle, Terra."}
+                    : "A: 1, Washington Square South, New York, USA"}
                 </Typography>
               </Box>
               {/* Aadhar Card */}
@@ -256,7 +256,27 @@ const KYCInfo = ({ handleClickMenu }) => {
                 >
                   {KYCInformation.adharCardNumber
                     ? KYCInformation.adharCardNumber
-                    : "1111111000"}
+                    : "1234 5678 9101"}
+                </Typography>
+              </Box>
+               {/* Pan Card */}
+               <Box
+                bgcolor={theme.palette.background.default}
+                className={styles.infoContentBox}
+              >
+                <Typography
+                  variant={!isMobile ? "body1" : "body2"}
+                  color="secondary"
+                >
+                  Pan Card
+                </Typography>
+                <Typography
+                  variant={!isMobile ? "body1" : "body2"}
+                  color="text.secondary"
+                >
+                  {KYCInformation.panCardNumber
+                    ? KYCInformation.panCardNumber
+                    : "ABCDE88F88"}
                 </Typography>
               </Box>
             </Paper>

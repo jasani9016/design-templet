@@ -1,45 +1,39 @@
 import React, { Suspense, useEffect, useState } from "react";
 import { Box } from "@mui/system";
-
-// Styles
 import styles from "./Account.module.css";
-
 import {
+  Snackbar,
   Alert,
   Divider,
   IconButton,
-  Snackbar,
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import SettingsMenu from "../../../components/Layout/SettingsMenu";
-// Component Loader
-import { AccountCardSkeletons } from "../../../components/Skeletons/ComponentSkeletons";
 import useAuth from "../../../hooks/useAuth";
-import TwoFAPinModal from "../../Registration/TwoFAPage/TwoFAPinModal/TwoFAPinModal";
-import AuthProgress from "../../../components/AuthProgress/AuthProgress";
 import Close from "@mui/icons-material/Close";
+import SettingsMenu from "../../../components/Layout/SettingsMenu";
 import CheckCircleOutline from "@mui/icons-material/CheckCircleOutline";
+import AuthProgress from "../../../components/AuthProgress/AuthProgress";
+import TwoFAPinModal from "../../Registration/TwoFAPage/TwoFAPinModal/TwoFAPinModal";
+import { AccountCardSkeletons } from "../../../components/Skeletons/ComponentSkeletons";
 
-// Lazy Components
-const ProfileInfo = React.lazy(() => import("./ProfileInfo/ProfileInfo"));
-const BankInfo = React.lazy(() => import("./BankInfo/BankInfo"));
+// Lazy
 const KYCInfo = React.lazy(() => import("./KYCInfo/KYCInfo"));
+const BankInfo = React.lazy(() => import("./BankInfo/BankInfo"));
+const ProfileInfo = React.lazy(() => import("./ProfileInfo/ProfileInfo"));
 const OtherOptions = React.lazy(() => import("./OtherOptions/OtherOptions"));
 
 const Account = () => {
-  const { showPin, setShowPin } = useAuth();
+  
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const [anchorElMenu, setAnchorElMenu] = React.useState(null);
   const [openAuthProgressModal, setOpenAuthProgressModal] = useState(false);
-  const [showAuthenticationSnackbar, setShowAuthenticationSnackbar] =
-    useState(false);
+  const [showAuthenticationSnackbar, setShowAuthenticationSnackbar] = useState(false);
+  const openMenu = Boolean(anchorElMenu);
 
-  const handleCloseTwoFAPin = () => {
-    setShowPin(false);
-  };
-
-  // handler for auth progress
+  // Handler for auth progress
   const handleOpenAuthProgressModal = () => {
-    handleCloseTwoFAPin();
     setOpenAuthProgressModal(true);
   };
 
@@ -47,19 +41,11 @@ const Account = () => {
     setOpenAuthProgressModal(false);
   };
 
-  // Handler for authentication successfull snackbar
-
+  // Handler for authentication successfull
   const handleCloseAuthenticationSnackbar = () => {
     setShowAuthenticationSnackbar(false);
   };
 
-  // Menu
-  const [anchorElMenu, setAnchorElMenu] = React.useState(null);
-
-  const openMenu = Boolean(anchorElMenu);
-
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   const handleClickMenu = (event) => {
     setAnchorElMenu(event.currentTarget);
@@ -88,8 +74,8 @@ const Account = () => {
             ? { vertical: "top", horizontal: "right" }
             : { vertical: "bottom", horizontal: "center" }
         }
-        open={showAuthenticationSnackbar}
         autoHideDuration={3000}
+        open={showAuthenticationSnackbar}
         onClose={handleCloseAuthenticationSnackbar}
       >
         <Alert
@@ -103,8 +89,8 @@ const Account = () => {
           }
           icon={<CheckCircleOutline sx={{ fontSize: "1.5rem" }} />}
           sx={!isMobile ? { fontSize: "1rem" } : { width: "100%" }}
-          onClose={handleCloseAuthenticationSnackbar}
           severity="success"
+          onClose={handleCloseAuthenticationSnackbar}
         >
           Authentication Successfull!
         </Alert>
@@ -115,13 +101,11 @@ const Account = () => {
       />
       <TwoFAPinModal
         open={
-          true
-          // showPin
+          false
         }
-        onClose={handleCloseTwoFAPin}
         openAuthorizationModal={handleOpenAuthProgressModal}
       />
-      <Box>
+      <Box >
         <Suspense
           fallback={<AccountCardSkeletons width={!isMobile ? "58%" : "100%"} />}
         >

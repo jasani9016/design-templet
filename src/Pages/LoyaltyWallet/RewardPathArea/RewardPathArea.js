@@ -1,20 +1,11 @@
 import React, { Suspense } from "react";
 import { Box } from "@mui/system";
-import { Skeleton, Stack, Typography } from "@mui/material";
-
-// Avatar
-import ProfileAvatar from "../../../assets/profileAvatar.svg";
-
-// Styles
 import styles from "./RewardPathArea.module.css";
-
-// Component Loader
+import { Skeleton, Stack, Typography } from "@mui/material";
+import ProfileAvatar from "../../../assets/profileAvatar.svg";
 import { ComponentSkeleton } from "../../../components/Skeletons/ComponentSkeletons";
 
-// Lazy Component
-const LazyImageComponent = React.lazy(() =>
-  import("../../../components/LazyImageComponent/LazyImageComponent")
-);
+const LazyImageComponent = React.lazy(() => import("../../../components/LazyImageComponent/LazyImageComponent"));
 const TimeLineArea = React.lazy(() => import("../TimeLineArea/TimeLineArea"));
 
 const RewardPathArea = () => {

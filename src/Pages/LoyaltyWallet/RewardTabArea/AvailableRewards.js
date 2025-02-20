@@ -1,77 +1,61 @@
 import React, { Suspense } from "react";
 import {
-  Box,
   Grid,
-  Typography,
+  Box,
+  Chip,
   Button,
+  Alert,
   Stack,
   Skeleton,
-  Chip,
   Snackbar,
-  Alert,
+  Typography,
   IconButton,
   useMediaQuery,
 } from "@mui/material";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-
-// Image
-import DominosPizzaImage from "../../../assets/dominosPizza.svg";
-
-// Styles
-import styles from "./RewardTabArea.module.css";
-
-// Custom Theme
-import { useTheme } from "@mui/material/styles";
-
-import CheckCircleOutline from "@mui/icons-material/CheckCircleOutline";
 import Close from "@mui/icons-material/Close";
-// Skeleton
+import { useTheme } from "@mui/material/styles";
+import styles from "./RewardTabArea.module.css";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import Bitcoin from "../../../assets/Bitcoin.svg";
+import CheckCircleOutline from "@mui/icons-material/CheckCircleOutline";
 import { ModalSkeletons } from "../../../components/Skeletons/ComponentSkeletons";
 
-// Lazy Image Component
-const LazyImageComponent = React.lazy(() =>
-  import("../../../components/LazyImageComponent/LazyImageComponent")
-);
+const LazyImageComponent = React.lazy(() => import("../../../components/LazyImageComponent/LazyImageComponent"));
+const ClaimRewardModal = React.lazy(() => import("../ClaimRewardModal/ClaimRewardModal"));
 
-// Modal
-const ClaimRewardModal = React.lazy(() =>
-  import("../ClaimRewardModal/ClaimRewardModal")
-);
-
-// Fake Available Rewards
 const availableRewardData = [
   {
     id: "1",
     title: "Upto ₹200 off",
-    from: "from Domino's Pizza",
+    from: "from Amazon Pay",
     points: "70",
     status: "unlocked",
   },
   {
     id: "2",
     title: "Upto ₹200 off",
-    from: "from Domino's Pizza",
+    from: "from Amazon Pay",
     points: "70",
     status: "unlocked",
   },
   {
     id: "3",
     title: "Upto ₹200 off",
-    from: "from Domino's Pizza",
+    from: "from Amazon Pay",
     points: "70",
     status: "unlocked",
   },
   {
     id: "4",
     title: "Upto ₹200 off",
-    from: "from Domino's Pizza",
+    from: "from Amazon Pay",
     points: "70",
     status: "unlocked",
   },
   {
     id: "5",
     title: "Upto ₹200 off",
-    from: "from Domino's Pizza",
+    from: "from Amazon Pay",
     points: "70",
     status: "locked",
   },
@@ -83,7 +67,6 @@ const AvailableRewards = () => {
   const theme = useTheme();
   const isTablet = useMediaQuery(theme.breakpoints.down("md"));
 
-  // Modal Handler
   const handleOpenRewardModal = () => {
     setOpenRewardModal(true);
   };
@@ -92,7 +75,6 @@ const AvailableRewards = () => {
     setOpenRewardModal(false);
   };
 
-  // Snackbar Handler
   const handleOpenSnackBar = () => {
     setOpenRewardModal(false);
     setOpenSnackbar(true);
@@ -112,10 +94,10 @@ const AvailableRewards = () => {
         />
       </Suspense>
       <Snackbar
-        anchorOrigin={{ vertical: "top", horizontal: "right" }}
         open={openSnackbar}
         autoHideDuration={6000}
         onClose={handleCloseSnackbar}
+        anchorOrigin={{ vertical: "top", horizontal: "right" }}
       >
         <Alert
           action={
@@ -123,10 +105,10 @@ const AvailableRewards = () => {
               <Close sx={{ fontSize: "1.5rem" }} />
             </IconButton>
           }
-          icon={<CheckCircleOutline sx={{ fontSize: "1.5rem" }} />}
+          severity="success"
           sx={{ fontSize: "1rem" }}
           onClose={handleCloseSnackbar}
-          severity="success"
+          icon={<CheckCircleOutline sx={{ fontSize: "1.5rem" }} />}
         >
           Reward Successfully Claimed!
         </Alert>
@@ -142,8 +124,8 @@ const AvailableRewards = () => {
           rowGap={{ md: 2, xl: 2, sm: 3 }}
           spacing={{ md: 2, xl: 2, sm: 3 }}
         >
-          {availableRewardData.map((rewardData) => (
-            <Grid key={rewardData.id} item md={6} xl={4} sm={12}>
+          {availableRewardData.map((data) => (
+            <Grid key={data.id} item md={6} xl={4} sm={12}>
               <Box className={styles.availableRewardCard}>
                 <Box
                   bgcolor={theme.palette.common.white}
@@ -165,12 +147,13 @@ const AvailableRewards = () => {
                   >
                     <LazyImageComponent
                       className={
-                        rewardData.status === "locked" ? styles.lockedImage : {}
+                        data.status === "locked" ? styles.lockedImage : {}
                       }
-                      src={DominosPizzaImage}
+                      style={{width: '80px'}}
+                      src={Bitcoin}
                     />
                   </Suspense>
-                  {rewardData.status === "locked" && (
+                  {data.status === "locked" && (
                     <Box className={styles.lockKey}>
                       <LockOutlinedIcon className={styles.lockKeyIcon} />
                     </Box>
@@ -180,23 +163,23 @@ const AvailableRewards = () => {
                   bgcolor={theme.palette.background.paper}
                   className={styles.availableRewardContentArea}
                 >
-                  <Typography variant="h6">{rewardData.title}</Typography>
-                  <Typography variant="body2">{rewardData.from}</Typography>
+                  <Typography variant="h6">{data.title}</Typography>
+                  <Typography variant="body2">{data.from}</Typography>
                   <Stack direction="row" justifyContent="flex-end" mt={1}>
-                    {rewardData.status === "locked" ? (
+                    {data.status === "locked" ? (
                       <Chip
-                        label={`${rewardData.points} Points`}
+                        label={`${data.points} Points`}
                         className={styles.chipStyleLocked}
                       />
                     ) : (
                       <Chip
-                        label={`${rewardData.points} Points`}
+                        label={`${data.points} Points`}
                         className={styles.chipStyle}
                       />
                     )}
                   </Stack>
                   <Stack justifyContent="flex-end" alignItems="flex-end">
-                    {rewardData.status === "locked" ? (
+                    {data.status === "locked" ? (
                       <Button
                         disabled
                         variant="text"

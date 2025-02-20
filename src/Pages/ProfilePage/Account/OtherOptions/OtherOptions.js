@@ -58,7 +58,7 @@ const OtherOptions = ({ handleClickMenu }) => {
   return (
     <>
       <Grid container columns={{ xs: 1, sm: 12, md: 12 }}>
-        <Grid item xs={12} sm={12} md={7}>
+        <Grid item xs={12} sm={12} md={12}>
           <Box className={styles.otherOptions}>
             {/* Header */}
             <Box className={styles.infoContentTitleBox}>
@@ -93,8 +93,7 @@ const OtherOptions = ({ handleClickMenu }) => {
                     color="text.secondary"
                     sx={!isMobile ? { maxWidth: 350 } : { maxWidth: 130 }}
                   >
-                    Change your account password to enable security of your
-                    account
+                    Change your account password to enable security of your account
                   </Typography>
                 </Box>
                 <Box>
@@ -148,7 +147,7 @@ const OtherOptions = ({ handleClickMenu }) => {
                     component="p"
                     color="text.secondary"
                   >
-                    Deleting account will lead to complete loss of this account.
+                    Deleting your account will result in the permanent loss of all associated data.
                   </Typography>
                 </Box>
                 <Box>
@@ -181,10 +180,10 @@ const OtherOptions = ({ handleClickMenu }) => {
         </Suspense>
       ) : (
         <MobileNavDrawer
+          topBarContent={"Delete Account"}
           handleClickMenu={handleClickMenu}
           drawerOpen={openDeleteAccountModal}
           handleDrawerToggle={handleDeleteAccountDrawer}
-          topBarContent={"Delete Account"}
         >
           <Suspense fallback={<ComponentLoader />}>
             <DeleteAccountModalMobile
@@ -203,10 +202,10 @@ const OtherOptions = ({ handleClickMenu }) => {
         </Suspense>
       ) : (
         <MobileNavDrawer
+          topBarContent={"Change Password"}
           handleClickMenu={handleClickMenu}
           drawerOpen={openChangePasswordModal}
           handleDrawerToggle={handleChangePasswordDrawer}
-          topBarContent={"Change Password"}
         >
           <Suspense fallback={<ComponentLoader />}>
             <ChangePasswordModalMobile

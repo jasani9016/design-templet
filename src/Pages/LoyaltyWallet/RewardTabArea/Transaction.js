@@ -1,106 +1,102 @@
 import React from "react";
 import {
-  Table,
   TableBody,
-  TableContainer,
+  useTheme,
+  Table,
   TableHead,
-  TablePagination,
   TableRow,
   Typography,
   useMediaQuery,
-  useTheme,
+  TableContainer,
+  TablePagination,
 } from "@mui/material";
 import { Box } from "@mui/system";
-
-// Custom Table Cell and Row
 import {
   StyledTableCell,
   StyledTableRow,
 } from "../../../components/StyledTable/StyledTable";
-
-// Styles
 import styles from "./RewardTabArea.module.css";
 
-// Fake Transaction Data
 const transactionData = [
   {
     id: "1",
     transactionType: "Reward",
-    coin: "50",
-    transactionId: "2368712547285478",
-    timeStamp: "Today, 03:12 PM",
+    coin: "100",
+    transactionId: "98765",
+    timeStamp: "Today, 10:30 AM",
   },
   {
     id: "2",
     transactionType: "Redeem",
-    coin: "50",
-    transactionId: "2368712547285478",
-    timeStamp: "Today, 03:12 PM",
+    coin: "75",
+    transactionId: "12345",
+    timeStamp: "Yesterday, 04:45 PM",
   },
   {
     id: "3",
     transactionType: "Reward",
-    coin: "50",
-    transactionId: "2368712547285478",
-    timeStamp: "Today, 03:12 PM",
+    coin: "200",
+    transactionId: "55544",
+    timeStamp: "2 days ago, 02:15 PM",
   },
   {
     id: "4",
     transactionType: "Redeem",
     coin: "50",
-    transactionId: "2368712547285478",
-    timeStamp: "Today, 03:12 PM",
+    transactionId: "44433",
+    timeStamp: "Today, 01:00 PM",
   },
   {
     id: "5",
     transactionType: "Reward",
-    coin: "50",
-    transactionId: "2368712547285478",
-    timeStamp: "Today, 03:12 PM",
+    coin: "150",
+    transactionId: "99988",
+    timeStamp: "3 days ago, 06:20 PM",
   },
   {
     id: "6",
     transactionType: "Redeem",
-    coin: "50",
-    transactionId: "2368712547285478",
-    timeStamp: "Today, 03:12 PM",
+    coin: "125",
+    transactionId: "33322",
+    timeStamp: "Yesterday, 11:10 AM",
   },
   {
     id: "7",
     transactionType: "Reward",
-    coin: "50",
-    transactionId: "2368712547285478",
-    timeStamp: "Today, 03:12 PM",
+    coin: "300",
+    transactionId: "22211",
+    timeStamp: "Today, 08:50 AM",
   },
   {
     id: "8",
-    transactionType: "Reward",
-    coin: "50",
-    transactionId: "2368712547285478",
-    timeStamp: "Today, 03:12 PM",
+    transactionType: "Redeem",
+    coin: "90",
+    transactionId: "11100",
+    timeStamp: "4 days ago, 09:35 PM",
   },
   {
     id: "9",
     transactionType: "Reward",
     coin: "50",
-    transactionId: "2368712547285478",
-    timeStamp: "Today, 03:12 PM",
+    transactionId: "77766",
+    timeStamp: "Yesterday, 05:25 PM",
   },
   {
     id: "10",
     transactionType: "Reward",
-    coin: "50",
-    transactionId: "2368712547285478",
-    timeStamp: "Today, 03:12 PM",
+    coin: "175",
+    transactionId: "66655",
+    timeStamp: "Today, 12:05 PM",
   },
   {
     id: "11",
-    transactionType: "Reward",
-    coin: "50",
-    transactionId: "2368712547285478",
-    timeStamp: "Today, 03:12 PM",
+    transactionType: "Redeem",
+    coin: "60",
+    transactionId: "55544",
+    timeStamp: "5 days ago, 07:15 AM",
   },
 ];
+
 
 const tableHeader = [
   {
@@ -124,8 +120,7 @@ const Transaction = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
-  // Table handler
-  const handleChangePage = (event, newPage) => {
+  const handleChangePage = (newPage) => {
     setTablePage(newPage);
   };
   const handleChangeRowsPerPage = (event) => {
@@ -145,8 +140,8 @@ const Transaction = () => {
               <Table>
                 <TableHead>
                   <TableRow>
-                    {tableHeader.map((th) => (
-                      <StyledTableCell key={th.name}>{th.name}</StyledTableCell>
+                    {tableHeader.map((data) => (
+                      <StyledTableCell key={data.name}>{data.name}</StyledTableCell>
                     ))}
                   </TableRow>
                 </TableHead>
@@ -156,28 +151,28 @@ const Transaction = () => {
                       tablePage * rowsPerPage,
                       tablePage * rowsPerPage + rowsPerPage
                     )
-                    .map((td) => (
-                      <StyledTableRow key={td.id}>
+                    .map((item) => (
+                      <StyledTableRow key={item.id}>
                         <StyledTableCell align="left">
                           <Typography
                             variant="body2"
                             color={
-                              td.transactionType === "Reward"
-                                ? "text.success"
-                                : "error"
+                              item.transactionType === "Redeem"
+                                ? "error"
+                                : "text.success"
                             }
                           >
-                            {td.transactionType}
+                            {item.transactionType}
                           </Typography>
                         </StyledTableCell>
                         <StyledTableCell align="left">
-                          {td.coin}
+                          {item.coin}
                         </StyledTableCell>
                         <StyledTableCell align="left">
-                          {td.transactionId}
+                          {item.transactionId}
                         </StyledTableCell>
                         <StyledTableCell align="left">
-                          {td.timeStamp}
+                          {item.timeStamp}
                         </StyledTableCell>
                       </StyledTableRow>
                     ))}
@@ -206,10 +201,10 @@ const Transaction = () => {
               <Table size="small">
                 <TableHead>
                   <TableRow>
-                    {tableHeader.map((th) => (
-                      <StyledTableCell key={th.name}>
+                    {tableHeader.map((data) => (
+                      <StyledTableCell key={data.name}>
                         <Typography variant="caption">
-                          {th.name.split(" ").slice(0, 1)}
+                          {data.name.split(" ").slice(0, 1)}
                         </Typography>
                       </StyledTableCell>
                     ))}
@@ -221,31 +216,31 @@ const Transaction = () => {
                       tablePage * rowsPerPage,
                       tablePage * rowsPerPage + rowsPerPage
                     )
-                    .map((td) => (
-                      <StyledTableRow key={td.id}>
+                    .map((item) => (
+                      <StyledTableRow key={item.id}>
                         <StyledTableCell align="left">
                           <Typography
                             variant="caption"
                             color={
-                              td.transactionType === "Reward"
-                                ? "text.success"
-                                : "error"
+                              item.transactionType === "Redeem"
+                              ? "error"
+                              : "text.success"
                             }
                           >
-                            {td.transactionType}
+                            {item.transactionType}
                           </Typography>
                         </StyledTableCell>
                         <StyledTableCell align="left">
-                          <Typography variant="caption">{td.coin}</Typography>
+                          <Typography variant="caption">{item.coin}</Typography>
                         </StyledTableCell>
                         <StyledTableCell align="left">
                           <Typography variant="caption">
-                            {td.transactionId}
+                            {item.transactionId}
                           </Typography>
                         </StyledTableCell>
                         <StyledTableCell align="left">
                           <Typography variant="caption">
-                            {td.timeStamp}
+                            {item.timeStamp}
                           </Typography>
                         </StyledTableCell>
                       </StyledTableRow>
