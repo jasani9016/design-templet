@@ -1,12 +1,7 @@
 import React, { Suspense } from "react";
-
-// Theme
+import { useNavigate } from "react-router-dom";
 import { useTheme } from "@mui/material/styles";
-
-// Styles
-import styles from "./CryptoWalletTopCards.module.css";
-
-// Material
+import styles from "./DigitalWalletLeftCards.module.css";
 import {
   Button,
   Skeleton,
@@ -16,80 +11,74 @@ import {
 } from "@mui/material";
 import { Box } from "@mui/system";
 import { LightUIButtonPrimary } from "../../../Utilities/LightUIButtons";
+import DigitaltotalFundImg from "../../../assets/DigitalWallet/digitaltotalFundImg.svg";
+import DigitalWalletCardImg from "../../../assets/DigitalWallet/digitalWalletCartImg.svg";
+import DigitalWalletCardImgLight from "../../../assets/DigitalWallet/digitalWalletCartImgLight.svg";
+import DigitalWalletTotalmgLight from "../../../assets/DigitalWallet/digitalWalletTotalImgLight.svg";
 
-// Card Images
-import TotalFundValueImage from "../../../assets/totalFundValueImage.svg";
-import BuyCryptoCardImage from "../../../assets/buyCryptoCurrencyCardImg.svg";
-import TotalFundValueImageLight from "../../../assets/totalFundValueImageLight.svg";
-import BuyCryptoCardImageLight from "../../../assets/buyCryptoCurrencyCardImgLight.svg";
-
-// Router
-import { useNavigate } from "react-router-dom";
-
-// Lazy Image component
-const LazyImageComponent = React.lazy(() =>
-  import("../../../components/LazyImageComponent/LazyImageComponent")
-);
+const LazyImageComponent = React.lazy(() => import("../../../components/LazyImageComponent/LazyImageComponent"));
 
 const CryptoWalletTopCards = () => {
-  const theme = useTheme();
   const navigate = useNavigate();
-  const isTablet = useMediaQuery(theme.breakpoints.down("md"));
+  const theme = useTheme();
+  const isTabletMode = useMediaQuery(theme.breakpoints.down("md"));
+
+  const onClickBuyDigitalCrypto = () => {
+    navigate("/wallets/top-up")
+  };
 
   return (
-    <Box className={styles.mainBox}>
-      <Box className={styles.cardBox} bgcolor={theme.palette.background.card}>
+    <>
+      <Box className={styles.cardBoxContainer} bgcolor={theme.palette.background.card}>
         <Stack
-          direction={!isTablet ? "row" : "column"}
-          spacing={4}
+          direction={isTabletMode ? "column" : "row"}
+          spacing={6}
           alignItems="stretch"
         >
           <Box>
             <Stack
+              bgcolor={theme.palette.background.paper}
               direction="row"
               justifyContent="space-between"
-              bgcolor={theme.palette.background.paper}
-              className={styles.card}
+              className={styles.cardStack}
             >
               <Box>
                 <Typography
-                  className={styles.cardSubTitle}
-                  sx={{ fontSize: { xs: "10px", sm: "10px", md: "14px" } }}
                   color="secondary"
                   variant="body2"
+                  sx={{ fontSize: { xs: "12px", sm: "12px", md: "17px" } }}
                 >
-                  Total fund value
+                  Digital value of your wallet
                 </Typography>
                 <Typography
-                  mt={3}
+                  mt={5}
                   mb={2}
-                  variant="h4"
-                  className={styles.cardTitle}
+                  variant="h2"
+                  className={styles.cardTitleFirst}
                   sx={{ fontSize: { xs: "10px", sm: "24px", md: "24px" } }}
                 >
-                  $73,275
+                  $50,000
                 </Typography>
               </Box>
-              <Box className={styles.cardImageArea}>
+              <Box className={styles.cardImageContainer}>
                 <Suspense
                   fallback={
                     <Skeleton
-                      animation="wave"
                       variant="rectangular"
-                      width={210}
-                      height={175}
+                      className={styles.cardImageSkeleton}
+                      animation="wave"
                     />
                   }
                 >
                   {theme.palette.mode === "dark" ? (
                     <LazyImageComponent
-                      className={styles.cardImage}
-                      src={TotalFundValueImage}
+                      className={styles.cardRightImage}
+                      src={DigitaltotalFundImg}
                     />
                   ) : (
                     <LazyImageComponent
-                      className={styles.cardImage}
-                      src={TotalFundValueImageLight}
+                      className={styles.cardRightImage}
+                      src={DigitalWalletTotalmgLight}
                     />
                   )}
                 </Suspense>
@@ -98,89 +87,86 @@ const CryptoWalletTopCards = () => {
           </Box>
           <Box>
             <Stack
-              direction="row"
-              justifyContent="space-between"
-              className={styles.card}
+              className={styles.cardStack}
               bgcolor={theme.palette.background.paper}
+              justifyContent="space-between"
+              direction="row"
             >
               <Box>
                 <Typography
-                  sx={{ fontSize: { xs: "10px", sm: "10px", md: "14px" } }}
                   color="secondary"
+                  sx={{ fontSize: { xs: "12px", sm: "12px", md: "17px" } }}
                   variant="body2"
                 >
-                  Buy Cryptocurrency from FIAT
+                  Buy Digital Crypto online
                 </Typography>
                 {theme.palette.mode === "dark" ? (
-                  <Box mt={3} className={styles.buyCryptoButton}>
+                  <Box mt={3} className={styles.digitalBuyButton}>
                     <Box
-                      className={styles.buyCryptoButtonInnerBox}
-                      borderRadius="4px"
                       bgcolor={theme.palette.background.paper}
+                      className={styles.digitalCryptoInnerBox}
                     >
                       <Button
-                        fullWidth
-                        onClick={() => navigate("/wallets/top-up")}
-                        variant="text"
-                        color="primary"
+                        onClick={() => onClickBuyDigitalCrypto()}
                         sx={{ py: 1.5 }}
+                        color="primary"
+                        variant="text"
+                        fullWidth
                       >
                         <Typography
-                          className={styles.buttonText}
+                          className={styles.digitalBTNText}
                           color="primary"
-                          variant="body2"
                           sx={{
-                            textTransform: "capitalize",
                             fontSize: { xs: "10px", md: "14px" },
                           }}
+                          variant="body2"
                         >
-                          Buy Crypto
+                          Buy Digital Crypto
                         </Typography>
                       </Button>
                     </Box>
                   </Box>
                 ) : (
                   <LightUIButtonPrimary
-                    onClick={() => navigate("/wallets/top-up")}
                     variant="text"
                     color="primary"
-                    fullWidth
                     sx={{ py: 1.5, mt: 3 }}
+                    fullWidth
+                    onClick={() => onClickBuyDigitalCrypto()}
                   >
                     <Typography
-                      className={styles.buttonText}
-                      color="#ffffff"
+                      className={styles.digitalBTNText}
                       variant="body2"
+                      color="#ffffff"
                       sx={{
-                        textTransform: "capitalize",
                         fontSize: { xs: "10px", md: "14px" },
+                        textTransform: "capitalize",
                       }}
                     >
-                      Buy Crypto
+                      Buy Digital Crypto
                     </Typography>
                   </LightUIButtonPrimary>
                 )}
               </Box>
-              <Box className={styles.cardImageArea}>
+              <Box className={styles.cardImageContainer}>
                 <Suspense
                   fallback={
                     <Skeleton
                       animation="wave"
+                      className={styles.cardImageSkeleton}
                       variant="rectangular"
-                      width={210}
-                      height={175}
                     />
                   }
                 >
                   {theme.palette.mode === "dark" ? (
                     <LazyImageComponent
-                      className={styles.cardImage}
-                      src={BuyCryptoCardImage}
+                      className={styles.cardRightImage}
+                      src={DigitalWalletCardImg}
                     />
                   ) : (
                     <LazyImageComponent
-                      className={styles.cardImage}
-                      src={BuyCryptoCardImageLight}
+                      className={styles.cardRightImage}
+                      src={DigitalWalletCardImgLight}
                     />
                   )}
                 </Suspense>
@@ -189,7 +175,7 @@ const CryptoWalletTopCards = () => {
           </Box>
         </Stack>
       </Box>
-    </Box>
+    </>
   );
 };
 

@@ -1,25 +1,17 @@
-.cardBox {
-  padding-top: 3.5rem;
-  /* display: flex;
-  gap: 3rem; */
+.cardBoxContainer {
   border-radius: 5px;
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
-  padding-bottom: 2.5rem;
+  padding: 3.5rem 1.5rem 2.5rem 1.5rem;
 }
 
-.card {
-  padding-left: 1rem;
-  padding-right: 0;
-  padding-top: 1rem;
-  padding-bottom: 1rem;
+.cardStack {
+  padding: 1rem 0 1rem 1rem;
   border-radius: 4px;
   display: flex;
   gap: 2rem;
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.05);
 }
 
-.cardTitle {
+.cardTitleFirst {
   font-weight: 700;
   background: linear-gradient(#f9e006, #ff6738);
   background: -webkit-linear-gradient(#f9e006, #ff6738);
@@ -28,32 +20,43 @@
   -webkit-text-fill-color: transparent;
 }
 
-.cardImageArea {
+.cardImageContainer {
+  margin-top: -60px;
+  margin-left: 20px;
   height: 100%;
-  margin-top: -3rem;
-  margin-left: 1rem;
 }
 
-.cardImage {
+.cardRightImage {
   display: block;
-  padding: 0;
   width: 80%;
   height: 80%;
   margin: 0 auto;
+  padding: 0;
 }
 
-.buyCryptoButton {
+.cardImageSkeleton {
+  width: 210;
+  height: 175;
+}
+
+.digitalBuyButton {
   padding: 1px;
   background: linear-gradient(90deg, #f9e006 0%, #f8931a 100%);
   border-radius: 4px;
 }
-.buyCryptoButtonInnerBox {
+
+.digitalBTNText {
+  text-transform: capitalize;
+}
+
+.digitalCryptoInnerBox {
   border-radius: 4px;
 }
 
-/* Crypto Wallet Top Cards Mobile */
 
-.totalFundCard {
+/* For Mobile */
+
+.fundCardMobileView {
   display: flex;
   justify-content: space-between;
   padding: 1rem;
@@ -61,32 +64,33 @@
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.05);
 }
 
-.cardTitleMobile {
+.cardTitleFirstMobile {
   font-weight: 700;
   background: linear-gradient(#f9e006, #ff6738);
   background: -webkit-linear-gradient(#f9e006, #ff6738);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  font-size: 24px;
 }
 
-.cardImageAreaMobile {
+.imgCartContainerMobile {
   margin-top: -1.5rem;
   display: flex;
   justify-content: flex-end;
 }
 
-.cardImageMobile {
+.imgMobileCart {
   display: block;
   width: 85%;
   height: 85%;
 }
 
-.buyBoxMobile {
-  margin-top: 1.5rem;
+.cartBuyContainerBox {
   display: flex;
-  justify-content: space-between;
-  padding: 1rem;
+  margin-top: 1.5rem;
   border-radius: 5px;
+  padding: 1rem;
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.05);
+  justify-content: space-between;
 }

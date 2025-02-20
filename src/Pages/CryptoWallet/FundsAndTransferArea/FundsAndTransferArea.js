@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+import React, { Suspense, useState } from "react";
 import {
   Tab,
   Tabs,
@@ -15,68 +15,57 @@ import { Box } from "@mui/system";
 import SearchIcon from "@mui/icons-material/Search";
 import { DatePicker, LocalizationProvider } from "@mui/lab";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
-
-// Styles
 import styles from "./FundsAndTransferArea.module.css";
-
-// Theme
 import { useTheme } from "@mui/material/styles";
-
-// Tabpanel component
 import TabPanel from "../../../components/TabPanel/TabPanel";
 import { DatePickerTextField } from "../../../components/DatePickerTextField/DatePickerTextField";
-
-// Skeleton
 import { TableSkeleton } from "../../../components/Skeletons/ComponentSkeletons";
-
-// Lazy tabpanel
 const TableArea = React.lazy(() => import("../DataArea/TableArea"));
 const TransactionArea = React.lazy(() => import("../DataArea/TransactionArea"));
 
 const FundsAndTransferArea = () => {
-  const [isReadOnly, setIsReadOnly] = React.useState(true);
-  const [tabValue, setTabValue] = React.useState(0);
-  const [fromDateValue, setFromDateValue] = React.useState(null);
-  const [toDateValue, setToDateValue] = React.useState(null);
-
   const theme = useTheme();
   const isTablet = useMediaQuery(theme.breakpoints.down("md"));
 
-  const handleChangeTab = (event, newValue) => {
-    setTabValue(newValue);
+  const [selectTab, setSelectTab] = useState(0);
+  const [selectedFromDate, setSelectedFromDate] = useState(null);
+  const [selectedToDate, setSelectedToDate] = useState(null);
+  const [isFocusReadOnly, setIsFocusReadOnly] = useState(true);
+
+  const focusReadOnlyTrue = () => {
+    setIsFocusReadOnly(true);
   };
 
-  const removeReadOnlyOnFocus = () => {
-    setIsReadOnly(false);
+  const changeTab = (e, newValue) => {
+    setSelectTab(newValue);
   };
 
-  const addReadOnlyOnBlur = () => {
-    setIsReadOnly(true);
+  const focusReadOnlyFalse = () => {
+    setIsFocusReadOnly(false);
   };
 
   return (
-    <Box className={styles.headerArea}>
+    <Box className={styles.fundandtransferContainer}>
       <Typography variant="button" color="secondary">
-        Funds and Transfers
+        Digital Fund and Transaction
       </Typography>
-      {/* Tab component */}
-      <Box className={styles.tabBox}>
+      <Box className={styles.tabContainer}>
         <Tabs
-          value={tabValue}
-          onChange={handleChangeTab}
+          value={selectTab}
+          onChange={changeTab}
           indicatorColor="primary"
           textColor="primary"
         >
-          <Tab label="Funds" />
-          <Tab label="Transfer History" />
+          <Tab label="Digital Funds" />
+          <Tab label="Transaction History" />
         </Tabs>
       </Box>
       <Box>
-        <TabPanel value={tabValue} index={0}>
+        <TabPanel value={selectTab} index={0}>
           <Box className={styles.searchArea}>
             <Input
               disableUnderline
-              readOnly={isReadOnly}
+              readOnly={isFocusReadOnly}
               color="secondary"
               className="inputField"
               size="small"
@@ -84,15 +73,15 @@ const FundsAndTransferArea = () => {
               placeholder="Search"
               startAdornment={
                 <InputAdornment position="start">
-                  <Box className={styles.searchBox}>
+                  <Box className={styles.userSearchBox}>
                     <IconButton edge="start">
                       <SearchIcon color="secondary" />
                     </IconButton>
                   </Box>
                 </InputAdornment>
               }
-              onFocus={removeReadOnlyOnFocus}
-              onBlur={addReadOnlyOnBlur}
+              onFocus={focusReadOnlyFalse}
+              onBlur={focusReadOnlyTrue}
             />
           </Box>
           <Divider />
@@ -102,7 +91,7 @@ const FundsAndTransferArea = () => {
             </Suspense>
           </Box>
         </TabPanel>
-        <TabPanel value={tabValue} index={1}>
+        <TabPanel value={selectTab} index={1}>
           <Stack
             direction={!isTablet ? "row" : "column"}
             justifyContent={!isTablet ? "space-between" : ""}
@@ -110,12 +99,12 @@ const FundsAndTransferArea = () => {
           >
             <Box>
               <Input
+                placeholder="Transaction Hash or Address"
                 disableUnderline
-                readOnly={isReadOnly}
+                readOnly={isFocusReadOnly}
+                size="small"
                 className="inputField"
                 sx={!isTablet ? { width: "130%" } : { width: "100%" }}
-                size="small"
-                placeholder="Transaction Hash or Address"
                 startAdornment={
                   <InputAdornment position="start">
                     <Box>
@@ -125,8 +114,8 @@ const FundsAndTransferArea = () => {
                     </Box>
                   </InputAdornment>
                 }
-                onFocus={removeReadOnlyOnFocus}
-                onBlur={addReadOnlyOnBlur}
+                onFocus={focusReadOnlyFalse}
+                onBlur={focusReadOnlyTrue}
               />
             </Box>
             <Box>
@@ -148,10 +137,8 @@ const FundsAndTransferArea = () => {
                       <DatePicker
                         disableFuture
                         label="From Date"
-                        value={fromDateValue}
-                        onChange={(newValue) => {
-                          setFromDateValue(newValue);
-                        }}
+                        value={selectedFromDate}
+                        onChange={(newValue) => setSelectedFromDate(newValue)}
                         renderInput={(params) => (
                           <DatePickerTextField
                             autoComplete="off"
@@ -167,17 +154,15 @@ const FundsAndTransferArea = () => {
                       <DatePicker
                         disablePast
                         label="To Date"
-                        value={toDateValue}
-                        onChange={(newValue) => {
-                          setToDateValue(newValue);
-                        }}
+                        value={selectedToDate}
+                        onChange={(newValue) => setSelectedToDate(newValue)}
                         renderInput={(params) => (
                           <DatePickerTextField
+                            size="small"
                             autoComplete="off"
-                            sx={!isTablet ? { width: "30%" } : { width: "50%" }}
                             variant="outlined"
                             color="secondary"
-                            size="small"
+                            sx={!isTablet ? { width: "30%" } : { width: "50%" }}
                             {...params}
                           />
                         )}

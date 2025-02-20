@@ -1,10 +1,6 @@
 import React, { Suspense, useEffect, useState } from "react";
-
-// Material
 import { Box } from "@mui/system";
 import axios from "axios";
-
-// Styles
 import styles from "./TableArea.module.css";
 import {
   Skeleton,
@@ -19,80 +15,51 @@ import {
   TablePagination,
   useMediaQuery,
 } from "@mui/material";
-
-// Bitcoin logo
-
-// Theme
 import { useTheme } from "@mui/material/styles";
-
-// Table
 import {
   StyledTableCell,
   StyledTableRow,
 } from "../../../components/StyledTable/StyledTable";
-
-// Route
 import { Link, useNavigate } from "react-router-dom";
+import { rowsPerPage } from "../../../components/Utils/common";
+const LazyImageComponent = React.lazy(() => import("../../../components/LazyImageComponent/LazyImageComponent"));
 
-// Lazy Image Loader
-const LazyImageComponent = React.lazy(() =>
-  import("../../../components/LazyImageComponent/LazyImageComponent")
-);
-
-// table header
-const tableHeader = [
-  {
-    name: "Coin",
-  },
-  {
-    name: "Price",
-  },
-  {
-    name: "Balance",
-  },
-  {
-    name: "Value",
-  },
-  {
-    name: "Take Action",
-  },
-];
+const headerData = ["Coin", "Price", "Balance", "Value", "Action"];
 
 const TableArea = () => {
-  const [coinData, setCoinData] = useState([]);
-  const [tablePage, setTablePage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
-
   const navigate = useNavigate();
+  const [coinAllData, setcoinAllData] = useState([]);
+  const [tablePage, setTablePage] = useState(0);
 
-  // theme
+  useEffect(() => {
+    axios.get("/CryptoWalletData.json").then((res) => setcoinAllData(res.data));
+  }, []);
+
   const theme = useTheme();
   const isTablet = useMediaQuery(theme.breakpoints.down("md"));
 
-  // Table Handler
   const handleChangePage = (event, newPage) => {
     setTablePage(newPage);
   };
 
-  // Loading coin data
-  useEffect(() => {
-    axios.get("/CryptoWalletData.json").then((res) => setCoinData(res.data));
-  }, []);
+  const onClickNavigate = (coinName) => {
+    navigate(`/wallets/${coinName}`)
+  };
 
   return (
     <Box className={styles.mainBox}>
-      <Box className={!isTablet ? styles.tableArea : styles.tableAreaTab}>
+      <Box className={!isTablet ? styles.tableAreaContainer : styles.tableAreaTabContainer}>
         <TableContainer>
           <Table>
             <TableHead>
               <TableRow>
-                {tableHeader.map((th) => (
-                  <StyledTableCell key={th.name}>{th.name}</StyledTableCell>
+                {headerData.map((items) => (
+                  <StyledTableCell key={items}>{items}</StyledTableCell>
                 ))}
               </TableRow>
             </TableHead>
             <TableBody>
-              {coinData
+              {coinAllData
                 .slice(
                   tablePage * rowsPerPage,
                   tablePage * rowsPerPage + rowsPerPage
@@ -100,10 +67,10 @@ const TableArea = () => {
                 .map((cd) => (
                   <StyledTableRow key={cd.id}>
                     <StyledTableCell
-                      onClick={() => navigate(`/wallets/${cd.coinName}`)}
-                      component="th"
-                      scope="row"
                       sx={{ cursor: "pointer" }}
+                      scope="row"
+                      component="th"
+                      onClick={() => onClickNavigate(cd.coinName)}
                     >
                       <Stack direction="row" spacing={3}>
                         {!isTablet && (
@@ -145,9 +112,9 @@ const TableArea = () => {
                         <Button
                           disableElevation
                           color="success"
-                          className={styles.depositButton}
+                          className={styles.depositbtnText}
                           variant="text"
-                          onClick={() => navigate(`/wallets/${cd.coinName}`)}
+                          onClick={() => onClickNavigate(cd.coinName)}
                         >
                           <Typography
                             variant="caption"
@@ -165,7 +132,7 @@ const TableArea = () => {
                           <Button
                             disableElevation
                             color="error"
-                            className={styles.withdrawButton}
+                            className={styles.textWithdrowbtn}
                             variant="text"
                           >
                             <Typography
@@ -187,7 +154,7 @@ const TableArea = () => {
         <TablePagination
           rowsPerPageOptions={[]}
           component="div"
-          count={coinData.length}
+          count={coinAllData.length}
           rowsPerPage={rowsPerPage}
           page={tablePage}
           onPageChange={handleChangePage}

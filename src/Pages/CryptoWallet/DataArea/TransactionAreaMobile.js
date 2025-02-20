@@ -12,38 +12,18 @@ import {
   Typography,
 } from "@mui/material";
 import { Box } from "@mui/system";
-
-// axios
 import axios from "axios";
-
-// Custom Table Cell and Row
 import {
   StyledTableCell,
   StyledTableRow,
 } from "../../../components/StyledTable/StyledTable";
-
-// Theme
 import { useTheme } from "@mui/material/styles";
-
-// Bitcoin Logo
 import BitcoinLogo from "../../../assets/bitCoinIcon.svg";
 import tableDetailsIcon from "../../../assets/tableDetailsIcon.svg";
-
-// Component Loader
 import ComponentLoader from "../../../components/ProgressLoader/ComponentLoader";
-
-// Styles
 import styles from "./TableArea.module.css";
-
-// Lazy Image
-const LazyImageComponent = React.lazy(() =>
-  import("../../../components/LazyImageComponent/LazyImageComponent")
-);
-
-//Lazy Modal
-const TableDetailsModal = React.lazy(() =>
-  import("../../../components/TableDetailsModal/TableDetailsModal")
-);
+const LazyImageComponent = React.lazy(() => import("../../../components/LazyImageComponent/LazyImageComponent"));
+const TableDetailsModal = React.lazy(() => import("../../../components/TableDetailsModal/TableDetailsModal"));
 
 const modalDataHeader = [
   {

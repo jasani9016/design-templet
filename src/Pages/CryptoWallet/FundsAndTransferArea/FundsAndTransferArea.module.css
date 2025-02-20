@@ -1,10 +1,15 @@
-.headerArea {
+.tabContainer {
+  margin-top: 2rem;
+  width: 100%;
+}
+
+.fundandtransferContainer {
   margin-top: 3rem;
 }
 
-.tabBox {
-  width: 100%;
-  margin-top: 2rem;
+.userSearchBox {
+  display: flex;
+  align-items: center;
 }
 
 .tabBoxMobile {
@@ -14,11 +19,6 @@
 
 .filterArea {
   margin: 2rem 0;
-}
-
-.searchBox {
-  display: flex;
-  align-items: center;
 }
 
 .searchArea {

@@ -1,33 +1,27 @@
-.tableArea {
+.tableAreaContainer {
   overflow-y: auto;
-  /* height: 30vh; */
   padding-right: 1rem;
 }
 
-.tableAreaTab {
+.tableAreaTabContainer {
   width: 70vw;
 }
 
-.tableAreaMobile {
-  overflow-y: scroll;
-  width: calc(100vw - 15vw);
-}
-
-.depositButton {
-  background: rgba(141, 208, 112, 0.2);
-  color: #8dd070;
-}
-
-.depositButton:hover {
-  color: #111;
-}
-
-.withdrawButton {
+.textWithdrowbtn {
   background: rgba(255, 0, 61, 0.2);
   color: #ff003d;
 }
 
-.withdrawButton:hover {
+.textWithdrowbtn:hover {
+  color: #111;
+}
+
+.depositbtnText {
+  background: rgba(141, 208, 112, 0.2);
+  color: #8dd070;
+}
+
+.depositbtnText:hover {
   color: #111;
 }
 
@@ -40,3 +34,11 @@
   cursor: pointer;
   width: 100%;
 }
+
+/* For Mobile */
+
+.tableAreaContainerMobile {
+  overflow-y: scroll;
+  width: calc(100vw - 15vw);
+}
+

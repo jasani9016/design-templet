@@ -1,10 +1,6 @@
 import React, { Suspense, useEffect, useState } from "react";
-
-// Material
 import { Box } from "@mui/system";
 import axios from "axios";
-
-// Styles
 import styles from "./TableArea.module.css";
 import {
   Skeleton,
@@ -18,60 +14,39 @@ import {
   Typography,
   TablePagination,
 } from "@mui/material";
-
-// Theme
 import { useTheme } from "@mui/material/styles";
-
-// Table
 import {
   StyledTableCell,
   StyledTableRow,
 } from "../../../components/StyledTable/StyledTable";
-
-// Route
 import { Link, useNavigate } from "react-router-dom";
+import { rowsPerPage } from "../../../components/Utils/common";
+const LazyImageComponent = React.lazy(() => import("../../../components/LazyImageComponent/LazyImageComponent"));
 
-// Lazy Image Loader
-const LazyImageComponent = React.lazy(() =>
-  import("../../../components/LazyImageComponent/LazyImageComponent")
-);
-
-// table header
-const tableHeader = [
-  {
-    name: "Coin",
-  },
-  {
-    name: "Balance",
-  },
-  {
-    name: "Take Action",
-  },
-];
+const tableHeader = ["Coin", "Balance", "Action"]
 
 const TableAreaMobile = () => {
-  const [coinData, setCoinData] = useState([]);
-  const [tablePage, setTablePage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
-
   const navigate = useNavigate();
-
-  // theme
   const theme = useTheme();
 
-  // Table Handler
-  const handleChangePage = (event, newPage) => {
-    setTablePage(newPage);
+  const [coinData, setCoinData] = useState([]);
+  const [tablePerPage, setTablePerPage] = useState(0);
+
+  const handleChangePagination = (event, newPage) => {
+    setTablePerPage(newPage);
   };
 
-  // Loading coin data
   useEffect(() => {
     axios.get("/CryptoWalletData.json").then((res) => setCoinData(res.data));
   }, []);
 
+  const onClickNavigate = (coinName) => {
+    navigate(`/wallets/${coinName}`)
+  };
+
   return (
     <Box className={styles.mainBox}>
-      <Box className={styles.tableAreaMobile}>
+      <Box className={styles.tableAreaContainerMobile}>
         <TableContainer>
           <Table>
             <TableHead>
@@ -86,13 +61,13 @@ const TableAreaMobile = () => {
             <TableBody>
               {coinData
                 .slice(
-                  tablePage * rowsPerPage,
-                  tablePage * rowsPerPage + rowsPerPage
+                  tablePerPage * rowsPerPage,
+                  tablePerPage * rowsPerPage + rowsPerPage
                 )
                 .map((cd) => (
                   <StyledTableRow key={cd.id}>
                     <StyledTableCell
-                      onClick={() => navigate(`/wallets/${cd.coinName}`)}
+                      onClick={() => onClickNavigate(cd.coinName)}
                       component="th"
                       scope="row"
                       sx={{ cursor: "pointer" }}
@@ -142,9 +117,9 @@ const TableAreaMobile = () => {
                           state={{ isReceiving: true }}
                         >
                           <Button
+                            color="success"
                             size="small"
                             disableElevation
-                            color="success"
                             className={styles.depositButton}
                             variant="text"
                           >
@@ -163,7 +138,7 @@ const TableAreaMobile = () => {
                           color="error"
                           className={styles.withdrawButton}
                           variant="text"
-                          onClick={() => navigate(`/wallets/${cd.coinName}`)}
+                          onClick={() => onClickNavigate(cd.coinName)}
                         >
                           <Typography
                             variant="caption"
@@ -185,8 +160,8 @@ const TableAreaMobile = () => {
           component="div"
           count={coinData.length}
           rowsPerPage={rowsPerPage}
-          page={tablePage}
-          onPageChange={handleChangePage}
+          page={tablePerPage}
+          onPageChange={handleChangePagination}
         />
       </Box>
     </Box>

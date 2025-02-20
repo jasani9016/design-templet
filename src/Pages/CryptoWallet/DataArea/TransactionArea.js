@@ -15,80 +15,53 @@ import {
 } from "@mui/material";
 import { Box } from "@mui/system";
 import { CopyToClipboard } from "react-copy-to-clipboard";
-
-// axios
 import axios from "axios";
-
-// Custom Table Cell and Row
 import {
   StyledTableCell,
   StyledTableRow,
 } from "../../../components/StyledTable/StyledTable";
-
-// Theme
 import { useTheme } from "@mui/material/styles";
-
-// Bitcoin Logo
 import BitcoinLogo from "../../../assets/bitCoinIcon.svg";
-
-// Styles
 import styles from "./TableArea.module.css";
+import { rowsPerPage } from "../../../components/Utils/common";
+const LazyImageComponent = React.lazy(() => import("../../../components/LazyImageComponent/LazyImageComponent"));
 
-// Lazy Image
-const LazyImageComponent = React.lazy(() =>
-  import("../../../components/LazyImageComponent/LazyImageComponent")
-);
-
-// Table Header
-const tableHeader = [
-  {
-    name: "Asset",
-  },
-  {
-    name: "Amount",
-  },
-  {
-    name: "Address",
-  },
-  {
-    name: "Time Stamp",
-  },
-];
+const tableHeader = ["Name", "Amount", "Activity", "Address"];
 
 const TransactionArea = () => {
-  const [transactionData, setTransactionData] = useState([]);
-  const [tablePage, setTablePage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
-  const [copied, setCopied] = useState(false);
-
   const theme = useTheme();
 
+  const [tablePerPage, setTablePerPage] = useState(0);
+  const [copyText, setCopyText] = useState(false);
+  const [transactionAllData, setTransactionAllData] = useState([]);
+
   useEffect(() => {
-    axios
-      .get("/CryptoWalletTransactionHistoryData.json")
-      .then((res) => setTransactionData(res.data));
+    const getTransactionData = () => {
+      axios.get("/CryptoWalletTransactionHistoryData.json")
+      .then((res) => setTransactionAllData(res.data));
+    };
+
+    getTransactionData();
   }, []);
 
-  const emptyRows =
-    tablePage > 0
-      ? Math.max(0, (1 + tablePage) * rowsPerPage - transactionData.length)
-      : 0;
-
-  // Table Handler
-  const handleChangePage = (event, newPage) => {
-    setTablePage(newPage);
-  };
-
-  // This will set the copy status to its preavious state
   useEffect(() => {
-    if (copied) {
-      const changeCopyStatus = setTimeout(() => {
-        setCopied(false);
+    if (copyText) {
+      const changeStatus = setTimeout(() => {
+        setCopyText(false);
       }, 1000);
 
-      return () => clearInterval(changeCopyStatus);
+      return () => clearInterval(changeStatus);
     }
-  }, [copied]);
+  }, [copyText]);
+
+  const blankRows =
+    tablePerPage > 0
+      ? Math.max(0, (1 + tablePerPage) * rowsPerPage - transactionAllData.length)
+      : 0;
+
+  const handleChangePage = (event, newPage) => {
+    setTablePerPage(newPage);
+  };
 
   return (
     <Box>
@@ -101,16 +74,16 @@ const TransactionArea = () => {
             <Table>
               <TableHead>
                 <TableRow>
-                  {tableHeader.map((th) => (
-                    <StyledTableCell key={th.name}>{th.name}</StyledTableCell>
+                  {tableHeader.map((header) => (
+                    <StyledTableCell key={header}>{header}</StyledTableCell>
                   ))}
                 </TableRow>
               </TableHead>
               <TableBody>
-                {transactionData
+                {transactionAllData
                   .slice(
-                    tablePage * rowsPerPage,
-                    tablePage * rowsPerPage + rowsPerPage
+                    tablePerPage * rowsPerPage,
+                    tablePerPage * rowsPerPage + rowsPerPage
                   )
                   .map((td) => (
                     <StyledTableRow key={td.id}>
@@ -156,25 +129,23 @@ const TransactionArea = () => {
                       </StyledTableCell>
                       <StyledTableCell align="left">
                         <Tooltip
-                          placement="bottom-start"
                           TransitionComponent={Zoom}
+                          placement="bottom-start"
                           title={
-                            copied ? (
+                            copyText ? (
                               <Typography
                                 variant="caption"
                                 color="text.success"
                               >
-                                Address Copied!
+                                Your Address copied!
                               </Typography>
-                            ) : (
-                              "Copy"
-                            )
+                            ) : "Copy"
                           }
                         >
                           <Box>
                             <CopyToClipboard
                               text={td.transactionAddress}
-                              onCopy={() => setCopied(true)}
+                              onCopy={() => setCopyText(true)}
                             >
                               <Input
                                 inputProps={{
@@ -198,7 +169,7 @@ const TransactionArea = () => {
                       </StyledTableCell>
                     </StyledTableRow>
                   ))}
-                {emptyRows > 0 && (
+                {blankRows > 0 && (
                   <StyledTableRow>
                     <StyledTableCell colSpan={6} />
                   </StyledTableRow>
@@ -207,11 +178,11 @@ const TransactionArea = () => {
             </Table>
           </TableContainer>
           <TablePagination
-            rowsPerPageOptions={[]}
             component="div"
-            count={transactionData.length}
+            rowsPerPageOptions={[]}
+            count={transactionAllData.length}
             rowsPerPage={rowsPerPage}
-            page={tablePage}
+            page={tablePerPage}
             onPageChange={handleChangePage}
           />
         </Box>
